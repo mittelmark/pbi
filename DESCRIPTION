@@ -1,0 +1,17 @@
+Package: Rpkg
+Type: Package
+Title: Your package title change the name on top with no dot at the end
+Version: 0.0.1
+Date: 2023-01-01
+Authors@R:c( 
+    person("Max", "Musterman", , "max@university.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID")))
+Description: R package for ... you should use 
+    Imports mostly instead of Depends.
+Imports: 
+URL: https://github.com/username/pkgname
+BugReports: https://github.com/username/pkgname/issues
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
+License: MIT + file LICENSE
+NeedsCompilation: no

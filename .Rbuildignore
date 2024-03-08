@@ -1,0 +1,6 @@
+^\.github$
+^\.git$
+^\.\.Rcheck$
+^\.Rbuildignore~$
+^Makefile$
+bak$
