@@ -2158,19 +2158,6 @@ pbi_pca.corplot = function (pca,pcs=c("PC1","PC2"), main="Correlation plot",cex=
   text(mcor1,mcor2,labels=cnames,cex=text.cex)
 }
 
-#' \name{.pbi.n}
-#' \alias{.pbi.n}
-#' \title{global variable to store information for the pca-plot}
-#' \description{This is a global variable to store some temporary information}
-#' \usage{.pbi.n}
-#'
-
-#pbi.var <<- list(n=NULL)
-
-.pbi.n <<- 0
-.pbi.tmpros <<- NULL
-.pbi.tmfunc <<- NULL
-
 #' \name{pbi_pca.pairs}
 #' \alias{pbi$pca.pairs}
 #' \alias{pbi_pca.pairs}
@@ -2213,9 +2200,11 @@ pbi_pca.corplot = function (pca,pcs=c("PC1","PC2"), main="Correlation plot",cex=
 #'      legend=TRUE,oma=c(5,4,4,4),col=as.numeric(iris[,5])+1)
 #' }
 
+N = new.env()
+N$.n = 0
 pbi_pca.pairs = function (pca,n=10,groups=NULL,
                             col='black',pch=19,legend=FALSE,...) {
-  .pbi.n <<- 1
+  N$.n <- 1
   if (n>ncol(pca$x)) {
     n=ncol(pca$x)
   }
@@ -2230,14 +2219,14 @@ pbi_pca.pairs = function (pca,n=10,groups=NULL,
     usr <- par("usr"); on.exit(par(usr))
     par(usr = c(0, 1, 0, 1))
     text(0.5,0.5,
-         paste(sprintf("%.1f",summary(pca)$importance[2,.pbi.n]*100),"%",
+         paste(sprintf("%.1f",summary(pca)$importance[2,  N$.n]*100),"%",
                sep=""),cex=1.5)
-    ds=density(pca$x[,.pbi.n],na.rm=TRUE)
+    ds=density(pca$x[,N$.n],na.rm=TRUE)
     ds$x=ds$x-min(ds$x)
     ds$x=ds$x/max(ds$x)
     ds$y=(ds$y/max(ds$y)*0.3)
     polygon(ds,col='grey80')
-    .pbi.n <<- .pbi.n + 1
+    N$.n = N$.n + 1
   }
   pairs(pca$x[,1:n],diag.panel=panel.text,col=col,pch=pch,...)
   if (legend && class(groups) != "NULL") {
@@ -3105,71 +3094,7 @@ pbi_text2fasta <- function (dir,pattern="*",outfile="stdout") {
 #' \seealso{  See also [pbi](#home), [pbi_prosite2regex](#prosite2regex) }
 
 pbi_tkregex = function () {
-  eval( {
-    .ttop=tktoplevel()
-    tkwm.title(.ttop,"Detlef's Regexer")
-    .thits=tclVar("")
-    .tregex=tclVar("")
-    .thpros=tclVar("")
-    .pbi.tmpros <<- function () {
-      pattern=tclvalue(tkget(tkps))
-      pattern=gsub(" --.+","",pattern)
-      pattern=gsub("^<","^",pattern)
-      pattern=gsub(">$","$",pattern)
-      pattern=gsub("\\{([^\\}]+)\\}","[^\\1]",pattern)
-      pattern=gsub("\\((.+?)\\)","{\\1}",pattern)
-      pattern=gsub("-","",pattern)
-      pattern=gsub("x",".",pattern)
-      tclvalue(.tregex)=pattern
-      .tmfunc()
-      #tkdelete(tke,'1','end')
-      #tkinsert(tke,'1',pattern)
-    }
-    .pbi.tmfunc <<- function () {
-      text=tclvalue(tkget(tke))
-      if (text == "") {
-        return()
-      }
-      tktag.delete(tkt,"found",'1.0','end')
-      tktag.configure(tkt,"found",foreground="#aa3333")
-      c=tclVar("")
-      lidx=strsplit(tclvalue(tksearch(tkt,'-all','-regex',text,"1.0"))," ")[[1]]
-      tclvalue(.thits)=length(lidx)
-      for (idx in lidx) {
-        x=tclvalue(tksearch(tkt,'-regex',count=c,text,idx))
-        col=as.numeric(gsub("(.+)\\.([0-9]+)","\\2",idx))
-        lin=as.numeric(gsub("(.+)\\.([0-9]+)","\\1",idx))
-        end=paste(lin,col+as.numeric(tclvalue(c)),sep=".")
-        tktag.add(tkt,"found",idx,end)
-        
-      }
-    }
-    ftop=tkframe(.ttop)
-    tkl=tklabel(ftop,text="Prosite Expression:\npress Enter ...)")
-    tkps=tkentry(ftop,width=30)
-    tkinsert(tkps,'1',"<M[AC]-x(0,1)-V-x(4)-{ED}-x(4,9)-M>")
-    tkbind(tkps,'<Return>',.tmpros)
-    tkgrid(tkl,padx=5,pady=5,row=0,column=0)
-    tkgrid(tkps,padx=5,pady=5,row=0,column=1,sticky="nsew")
-    
-    tkl=tklabel(ftop,text="Regular Expression:\n(press Enter ...)")
-    tke=tkentry(ftop,width=30,textvariable=.tregex)
-    tkbind(tke,'<Return>',.tmfunc)
-    tkgrid(tkl,padx=5,pady=5,row=1,column=0)
-    tkgrid(tke,padx=5,pady=5,row=1,column=1,sticky='nsew')
-    tkgrid(tklabel(ftop,text="Hits: "),row=0,column=2,padx=5,pady=5,rowspan=2,sticky="nsew")
-    tkgrid(tklabel(ftop,text=".....",width=10,textvariable=.thits),row=0,
-           column=3,padx=5,pady=5,rowspan=2)
-    tkgrid(tkbutton(ftop,text="Close Application",
-                    command=function() { tkdestroy(.ttop); }),
-           row=0,column=4,rowspan=2,sticky='nsew',padx=20,pady=10)
-    tkpack(ftop,side='top',fill='x',expand=FALSE)
-    tkt=tktext(.ttop,border=5,relief='flat')
-    tktag.configure(tkt,"found",foreground="#aa3333")
-    tkpack(tkt,side='top',fill='both',expand=TRUE)
-    tkinsert(tkt,"end",">ID1\nMAVFGTRTGHYRTGVM\n")
-    tkinsert(tkt,"end",">ID2\nAFGTRTGHZKLMO\n")
-  },envir=parent.frame())
+  source(system.file("scripts/tkregex.R",package="pbi"))
 }
 
 #' \name{pbi_wordFreq}
