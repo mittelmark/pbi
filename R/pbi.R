@@ -3094,7 +3094,9 @@ pbi_text2fasta <- function (dir,pattern="*",outfile="stdout") {
 #' \seealso{  See also [pbi](#home), [pbi_prosite2regex](#prosite2regex) }
 
 pbi_tkregex = function () {
-  source(system.file("scripts/tkregex.R",package="pbi"))
+    ### I could not handle package variables and global variables
+    ### without warning, so I moved the tk.app to it's own file
+    source(system.file("bin/tkregex.R",package="pbi"))
 }
 
 #' \name{pbi_wordFreq}
