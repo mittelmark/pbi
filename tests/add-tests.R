@@ -1,4 +1,4 @@
-library(Rpkg)
+library(pbi)
 
 x = 2 + 2
 

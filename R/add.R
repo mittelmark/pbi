@@ -8,18 +8,18 @@
 ## > extractRd(list.files("R",pattern="*.R$",full.names=TRUE))
 
 ## package-documentation
-#' \name{Rpkg-package}
-#' \alias{Rpkg-package}
-#' \title{Rpkg package - package template for R packages}
-#' \description{The Rpkg package can be used as a template to create new packages from scratch.}
+#' \name{pbi-package}
+#' \alias{pbi-package}
+#' \title{pbi package - package template for R packages}
+#' \description{The pbi package can be used as a template to create new packages from scratch.}
 #' \details{Some more details:
 #' The following list of objects and/or functions are available:
 #' \describe{
-#' \item{\link[Rpkg:add]{add(x,y)}}{an illustrative add function}
+#' \item{\link[pbi:add]{add(x,y)}}{an illustrative add function}
 #' }
 #' }
 #' \examples{
-#' library(Rpkg)
+#' library(pbi)
 #' add(1,2)
 #' }
 #' \author{Detlef Groth <dgroth@uni-potsdam.de>}
@@ -78,7 +78,7 @@ add <- function (x, y) {
 #' \examples{
 #'     testprint("Hello World!")
 #'     # sample file use
-#'    dec=read.table(file.path(system.file(package="Rpkg"),"files","decathlon.tab"))
+#'    dec=read.table(file.path(system.file(package="pbi"),"files","decathlon.tab"))
 #'    head(dec)
 #' }
 #' \seealso{  See also \code{\link{add}} }
@@ -102,7 +102,7 @@ Hidden = function (x) {
 .onLoad <- function(libname, pkgname) {
     # to show a startup message
     # example on how to initialize a Tcl package 
-    # tcltk::.Tcl(paste("lappend auto_path",file.path(system.file(package="Rpkg"),"pantcl", "lib")))
+    # tcltk::.Tcl(paste("lappend auto_path",file.path(system.file(package="pbi"),"pantcl", "lib")))
     # tcltk::.Tcl("package require tclfilters")
     # tools::vignetteEngine("pantcl",package=pkgname,weave=pantcl,tangle=ptangle)
 }

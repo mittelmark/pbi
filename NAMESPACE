@@ -1,1 +1,18 @@
 exportPattern("^[[:lower:]]+")
+importFrom("grDevices", "col2rgb", "rainbow", "rgb")                                                                                                                                        
+importFrom("graphics", "abline", "axTicks", "axis", "barplot", "box",                                                                                                                       
+             "boxplot", "legend", "lines", "mtext", "pairs", "par",                                                                                                                           
+             "points", "polygon", "rect", "text")                                                                                                                                             
+importFrom("stats", "aggregate", "aov", "as.dist", "chisq.test", "cor",                                                                                                                     
+             "cor.test", "cov", "density", "dist", "formula",                                                                                                                                 
+             "kruskal.test", "lm", "median", "na.omit", "pnorm",                                                                                                                              
+             "predict", "prop.test", "qchisq", "residuals", "sd",                                                                                                                             
+             "t.test")                                                                                                                                                                        
+importFrom("utils", "download.file", "head", "installed.packages",                                                                                                                          
+             "read.table")                                                                                                                                                                    
+importFrom("cluster", "silhouette")
+importFrom("rpart", "rpart")
+importFrom("tcltk","tclvalue","tclvalue<-","tclVar","tkbind","tkbutton","tkdestroy",
+    "tkentry","tkframe","tkget","tkgrid","tkinsert","tklabel",
+    "tkpack","tksearch","tktag.add","tktag.delete","tktext","tktoplevel",
+    "tktag.configure","tkwm.title")
