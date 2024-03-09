@@ -30,6 +30,10 @@
 #' }
 ""
 
+## main object:
+
+pbi = new.env()
+
 ## Functions documentation, protect percent signs % with backslashes \%
 
 #' \name{pbi_clusterSilhouette}
@@ -64,6 +68,8 @@ pbi_clusterSilhouette = function (x,D) {
   return(list(avg.width=sres$avg.width,
               clus.avg.widths=sres$clus.avg.widths))
 }
+
+pbi$clusterSilhouette = pbi_clusterSilhouette
 
 #' \name{pbi_clusterSimIndex}
 #' \alias{pbi$clusterSimIndex}
@@ -169,6 +175,8 @@ pbi_clusterSimIndex = function(v1, v2){
   return (RI)
 }
 
+pbi$clusterSimIndex = pbi_clusterSimIndex
+
 #' \name{pbi_cohensD}
 #' \alias{pbi$cohensD}
 #' \alias{pbi_cohensD}
@@ -227,6 +235,8 @@ pbi_cohensD <- function (num, cat,paired=FALSE) {
   return(d)
 }
 
+pbi$cohensD = pbi_cohensD
+
 #' \name{pbi_cohensH}
 #' \alias{pbi$cohensH}
 #' \alias{pbi_cohensH}
@@ -258,6 +268,8 @@ pbi_cohensH <- function (tab) {
             asin(sqrt(pt$estimate[2])))
   return(h[[1]])
 }
+
+pbi$cohensH = pbi_cohensH
 
 #' \name{pbi_cohensW}
 #' \alias{pbi$cohensW}
@@ -327,6 +339,8 @@ pbi_cohensW <- function (x,p=NULL) {
   }
 }
 
+pbi$cohensW = pbi_cohensW
+
 #' \name{pbi_cv}
 #' \alias{pbi$cv}
 #' \alias{pbi_cv}
@@ -357,6 +371,8 @@ pbi_cv = function (x,na.rm=FALSE) {
   cv=100*sd(x,na.rm=na.rm)/mean(x,na.rm=na.rm)
   return(cv)
 }
+
+pbi$cv = pbi_cv
 
 #' \name{pbi_dassoc}
 #' \alias{pbi$dassoc}
@@ -412,6 +428,8 @@ pbi_dassoc <- function (...,shade=TRUE) {
   
 }
 
+pbi$dassoc = pbi_dassoc
+
 #' \name{pbi_dcorr}
 #' \alias{pbi$dcorr}
 #' \alias{pbi_dcorr}
@@ -459,6 +477,8 @@ pbi_dcorr <- function (data,method='pearson',use='pairwise.complete.ob') {
   }
   return(list(estimate=mt,p.value=mt.pval,method=method))
 }
+
+pbi$dcorr = pbi_dcorr
 
 #' \name{pbi_dcorrplot}
 #' \alias{pbi$dcorrplot}
@@ -560,6 +580,8 @@ pbi_dcorrplot <- function (mt,text.lower=TRUE, text.upper=FALSE,
   }
 }
 
+pbi$dcorrplot = pbi_dcorrplot
+
 #' \name{pbi_df2md}
 #' \alias{pbi$df2md}
 #' \alias{pbi_df2md}
@@ -628,6 +650,8 @@ pbi_df2md <- function(x,caption='',rownames=TRUE) {
   }
   cat(fin)
 }
+
+pbi$df2md = pbi_df2md
 
 #' \name{pbi_dist}
 #' \alias{pbi$dist}
@@ -711,15 +735,17 @@ pbi_dist = function (x,method="euclidean",...) {
   }
 }
 
-#' \name{pbi_domainPlot}
-#' \alias{pbi$domainPlot}
-#' \alias{pbi_domainPlot}
+pbi$dist = pbi_dist
+
+#' \name{pbi_domainplot}
+#' \alias{pbi$domainplot}
+#' \alias{pbi_domainplot}
 #' \title{Use the mydomain website of prosite to create a protein domain plot.}
 #' \description{
 #'   This function can be used to draw a plot representing protein domains into a standard R plot.
 #'   The data are send to the website [https://prosite.expasy.org/cgi-bin/prosite/mydomains/](https://prosite.expasy.org/cgi-bin/prosite/mydomains/), a URL is created and the image from this url is downloaded to the local file system. The filename is a CRC32 digest of the URL so allowing to cache as well the downloaded results.
 #' }
-#' \usage{pbi_domainPlot(domains,ranges,sites,length=1000,hscale=1,cache=TRUE,plot=TRUE,cex=0.8,...)}
+#' \usage{pbi_domainplot(domains,ranges,sites,length=1000,hscale=1,cache=TRUE,plot=TRUE,cex=0.8,...)}
 #' \arguments{
 #'   \item{domains}{
 #'     list where names are the domain names and the values are four integers: start, end, shape (1:6), color (1:4)
@@ -751,14 +777,14 @@ pbi_dist = function (x,method="euclidean",...) {
 #' }
 #' \value{return a URL or a local filename in case of cache=TRUE, if plot is TRUE NULL is returned invisible}
 #' \examples{
-#' url=pbi_domainPlot(
+#' url=pbi_domainplot(
 #'     domains=list(MYDOM1=c(100,200,2,1),MYDOM2=c(300,500,3,2)),
 #'     ranges=list(a=c(190,500,1)),
 #'     sites=list(a=c(150,1)),hscale=2.0,plot=FALSE)
 #' print(url)
 #' }
 
-pbi_domainPlot <- function (domains,ranges,sites,length=1000,hscale=1,cache=TRUE,plot=TRUE,cex=0.8,...) {
+pbi_domainplot <- function (domains,ranges,sites,length=1000,hscale=1,cache=TRUE,plot=TRUE,cex=0.8,...) {
   shape <- function (x,y,width=1,height=0.3,type="circle",arrow=TRUE,dir="left") {
     center = function (poly) {
       poly$x=poly$x-mean(poly$x)
@@ -903,6 +929,8 @@ pbi_domainPlot <- function (domains,ranges,sites,length=1000,hscale=1,cache=TRUE
     return(url)
   }
 }
+
+pbi$domainplot = pbi_domainplot
 
 #' \name{pbi_dpairs}
 #' \alias{pbi$dpairs}
@@ -1105,6 +1133,8 @@ pbi_dpairs <- function (data,col.box='grey80',col.xy="grey60",cex.diag=2.5,
   par(opar)    
 }
 
+pbi$dpairs = pbi_dpairs
+
 #' \name{pbi_dpairs.legend}
 #' \alias{pbi$dpairs.legend}
 #' \alias{pbi_dpairs.legend}
@@ -1146,6 +1176,8 @@ pbi_dpairs.legend <- function (labels,col='grey80',pch=15,cex=1) {
   par(opar)
 }
 
+pbi$dpairs.legend = pbi_dpairs.legend
+
 #' \name{pbi_epsilonSquared}
 #' \alias{pbi$epsilonSquared}
 #' \alias{pbi_epsilonSquared}
@@ -1181,12 +1213,13 @@ pbi_epsilonSquared <- function (x,y) {
     n=length(x[which(!is.na(x) & !is.na(y))])
   }  else {
     H=unname(kruskal.test(x ~ y)$statistic)
-    n=sum(table(x,y)) # get rid of NA's
+    n=sum(table(x,y)) # get rid of NAs
     
   }    
   es=H/((n^2-1)/(n+1))
   return(es)
 }
+pbi$epsilonSquared = pbi_epsilonSquared
 
 #' \name{pbi_etaSquared}
 #' \alias{pbi$etaSquared}
@@ -1241,6 +1274,8 @@ pbi_etaSquared <- function (x,y=NULL) {
   }
 }
 
+pbi$etaSquared = pbi_etaSquared
+
 #' \name{pbi_file.head}
 #' \alias{pbi$file.head}
 #' \alias{pbi_file.head}
@@ -1272,6 +1307,8 @@ pbi_file.head = function (filename,n=6) {
   close(fin)
   return(res)
 }
+
+pbi$file.head = pbi_file.head
 
 #' \name{pbi_grect}
 #' \alias{pbi$grect}
@@ -1308,6 +1345,8 @@ pbi_grect = function (col="#c0c0c033",grid=FALSE) {
   }
   
 }
+
+pbi$grect = pbi_grect
 
 #' \name{pbi_impute}
 #' \alias{pbi$impute}
@@ -1418,9 +1457,11 @@ pbi_impute <- function (x,method="mean",k=5,cor.method="spearman")  {
   return(x)
 }
 
-#' \name{pbi_lmPlot}
-#' \alias{pbi$lmPlot}
-#' \alias{pbi_lmPlot}
+pbi$impute = pbi_impute
+
+#' \name{pbi_lmplot}
+#' \alias{pbi$lmplot}
+#' \alias{pbi_lmplot}
 #' \title{ Plot a xy-plot with linear model fits and the confidence lines. }
 #' \description{
 #'     The plot visualizes the linear fit description between numerical variables,
@@ -1428,7 +1469,7 @@ pbi_impute <- function (x,method="mean",k=5,cor.method="spearman")  {
 #'   the linear model. The code is based on a tutorial by Conrad Halling (2006). 
 #'   [https://web.archive.org/web/20180415155316/http://sphaerula.com/legacy/R/linearRegression.html](https://web.archive.org/web/20180415155316/http://sphaerula.com/legacy/R/linearRegression.html)
 #' }
-#' \usage{ pbi_lmPlot(x,y,col="blue",pch=19,col.lm="red",grid=TRUE,...) }
+#' \usage{ pbi_lmplot(x,y,col="blue",pch=19,col.lm="red",grid=TRUE,...) }
 #' \arguments{
 #'   \item{ x }{
 #'     vector with numerical variables
@@ -1458,7 +1499,7 @@ pbi_impute <- function (x,method="mean",k=5,cor.method="spearman")  {
 #' 250, 220, 145, 115, 230, 200, 330, 400, 370, 260, 270, 
 #'  530, 375)
 #' 
-#' pbi_lmPlot(x=c20.22,y=ins.sens,
+#' pbi_lmplot(x=c20.22,y=ins.sens,
 #'    xlab='\%C20-22 Fatty Acids',ylim=c(0,600),
 #'    xlim=c(17,25),main='best fit',
 #'    ylab='Insuline Sensitivity Index (mg/m^2/min)')
@@ -1469,7 +1510,7 @@ pbi_impute <- function (x,method="mean",k=5,cor.method="spearman")  {
 #' }
 #' \seealso{  See also: [pbi](#pbi), [pbi_modelQuality](#modelQuality) }
 
-pbi_lmPlot = function (x,y, col="blue",pch=19,col.lm="red",grid=TRUE,...) {
+pbi_lmplot = function (x,y, col="blue",pch=19,col.lm="red",grid=TRUE,...) {
   df <- data.frame(x=x,y=y)
   plot(y ~ x, data=df, pch=pch, col=col,...)
   if (grid) {
@@ -1495,6 +1536,8 @@ pbi_lmPlot = function (x,y, col="blue",pch=19,col.lm="red",grid=TRUE,...) {
       col = col ,lty=2,lwd=2)
   }
 }
+
+pbi$lmplot = pbi_lmplot
 
 #' \name{pbi_mi}
 #' \alias{pbi$mi}
@@ -1560,6 +1603,8 @@ pbi_mi = function (x,y=NULL,breaks=4) {
     return(MI)
   }
 }
+
+pbi$mi = pbi_mi
 
 #' \name{pbi_modelQuality}
 #' \alias{pbi$modelQuality}
@@ -1628,7 +1673,7 @@ pbi_mi = function (x,y=NULL,breaks=4) {
 #'    as.factor(c('x','x','v')[as.numeric(iris$Species)]),
 #'    as.factor(c("x","x","v")[as.numeric(pred)])))
 #' }
-#' \seealso{  See also: [pbi](#pbi), [pbi_lmPlot](#lmPlot) }
+#' \seealso{  See also: [pbi](#pbi), [pbi_lmplot](#lmPlot) }
 
 pbi_modelQuality = function (x,y) {
   mse = function (x,p) { # outlier sensitive
@@ -1662,6 +1707,8 @@ pbi_modelQuality = function (x,y) {
   }
 }
 
+pbi$modelQuality = pbi_modelQuality
+
 #' \name{pbi_modus}
 #' \alias{pbi$modus}
 #' \alias{pbi_modus}
@@ -1685,6 +1732,8 @@ pbi_modus = function (x) {
   idx=which(max(tab)==tab)
   return(names(tab)[idx])
 }
+
+pbi$modus = pbi_modus
 
 #' \name{pbi_msa2pwm}
 #' \alias{pbi$msa2pwm}
@@ -1761,6 +1810,8 @@ pbi_msa2pwm <- function (filename) {
   return(list(PFM=PFM[idx,],PPM=PPM[idx,],PWM=log2(PPM[idx,]/bg),PWMPC=PWM))
 }
 
+pbi$msa2pwm = pbi_msa2pwm
+
 #' \name{pbi_mw}
 #' \alias{pbi$mw}
 #' \alias{pbi_mw}
@@ -1806,6 +1857,8 @@ pbi_mw <- function (seq) {
   }   
   return(mw)
 }
+
+pbi$mw = pbi_mw
 
 #' \name{pbi_package.deps}
 #' \alias{pbi$package.deps}
@@ -1859,6 +1912,8 @@ pbi_package.deps <- function(pkgName,mode='all')  {
   
 }
 
+pbi$package.deps = pbi_package.deps
+
 #' \name{pbi_pastel}
 #' \alias{pbi$pastel}
 #' \alias{pbi_pastel}
@@ -1890,6 +1945,8 @@ pbi_pastel <- function (n) {
   idx=seq(1,20,by=floor(20/n))
   return(pcols[idx])
 }
+pbi$pastel = pbi_pastel
+
 #' \name{pbi_pca.biplot}
 #' \alias{pbi$pca.biplot}
 #' \alias{pbi_pca.biplot}
@@ -2051,6 +2108,8 @@ pbi_pca.biplot = function (pca,pcs=c("PC1","PC2"),
   
 }
 
+pbi$pca.biplot = pbi_pca.biplot
+
 #' \name{pbi_pca.corplot}
 #' \alias{pbi_pca.corplot}
 #' \alias{pbi$pca.corplot}
@@ -2158,6 +2217,8 @@ pbi_pca.corplot = function (pca,pcs=c("PC1","PC2"), main="Correlation plot",cex=
   text(mcor1,mcor2,labels=cnames,cex=text.cex)
 }
 
+pbi$pca.corplot = pbi_pca.corplot
+
 #' \name{pbi_pca.pairs}
 #' \alias{pbi$pca.pairs}
 #' \alias{pbi_pca.pairs}
@@ -2251,6 +2312,8 @@ pbi_pca.pairs = function (pca,n=10,groups=NULL,
   
 }
 
+pbi$pca.pairs = pbi_pca.pairs
+
 #' \name{pbi_pca.plot}
 #' \alias{pbi$pca.plot}
 #' \alias{pbi_pca.plot}
@@ -2340,6 +2403,8 @@ pbi_pca.plot = function (pca,n=10,type="bar", cex=1.5,
   box()
 }
 
+pbi$pca.plot = pbi_pca.plot
+
 #' \name{pbi_pca.variances}
 #' \alias{pbi$pca.variances}
 #' \alias{pbi_pca.variances}
@@ -2369,6 +2434,8 @@ pbi_pca.variances = function (pca) {
   for (i in 1:ncol(var)) { var[,i]=var[,i]*imp[i] }
   return(var)
 }
+
+pbi$pca.variances = pbi_pca.variances
 
 #' \name{pbi_pca.varplot}
 #' \alias{pbi$pca.varplot}
@@ -2449,6 +2516,8 @@ pbi_pca.varplot = function (pca,pcs=10,main="Variance plot",
   }
 }
 
+pbi$pca.varplot = pbi_pca.varplot
+
 #' \name{pbi_pca.toData}
 #' \alias{pbi$pca.toData}
 #' \alias{pbi_pca.toData}
@@ -2482,6 +2551,8 @@ pbi_pca.toData = function (pca) {
   }
   return(data)
 }
+
+pbi$pca.toData = pbi_pca.toData
 
 #' \name{pbi_pcor}
 #' \alias{pbi$pcor}
@@ -2524,6 +2595,8 @@ pbi_pcor = function (x,y,z,method='pearson') {
   r=pbi_pcor.test(x,y,z,method=method)$estimate
   return(r)
 }
+
+pbi$pcor = pbi_pcor
 
 #' \name{pbi_pcor.test}
 #' \alias{pbi$pcor.test}
@@ -2606,6 +2679,8 @@ pbi_pcor.test = function (x,y,z,method='pearson') {
               df=pr$parameter,method=method))
 }
 
+pbi$pcor.test = pbi_pcor.test
+
 #' \name{pbi_prosite2regex}
 #' \alias{pbi$prosite2regex}
 #' \alias{pbi_prosite2regex}
@@ -2638,6 +2713,8 @@ pbi_prosite2regex = function (pattern) {
   pattern=gsub("x",".",pattern)
   return(pattern)
 }
+
+pbi$prosite2regex = pbi_prosite2regex
 
 #' \name{pbi_protscale}
 #' \alias{pbi$protscale}
@@ -2710,6 +2787,8 @@ pbi_protscale = function (sequence,plot=FALSE,col='orange') {
   invisible(res)
 }
 
+pbi$protscale = pbi_protscale
+
 #' \name{pbi_readFasta}
 #' \alias{pbi$readFasta}
 #' \alias{pbi_readFasta}
@@ -2761,6 +2840,8 @@ pbi_readFasta <- function (filename) {
   res[id]=seq
   return(res)
 }
+
+pbi$readFasta = pbi_readFasta
 
 #' \name{pbi_readPepinfo}
 #' \alias{pbi$readPepinfo}
@@ -2827,6 +2908,8 @@ pbi_readPepinfo = function (file,region=NULL) {
   return(res)
 }
 
+pbi$readPepinfo = pbi_readPepinfo
+
 #' \name{pbi_report.chisq.test}
 #' \alias{pbi$report.chisq.test}
 #' \alias{pbi_report.chisq.test}
@@ -2857,6 +2940,8 @@ pbi_report.chisq.test <- function (tab) {
                ', Cohens $w$=',round(pbi_cohensW(tab),2),sep=''))
 }
 
+pbi$report.chisq.test = pbi_report.chisq.test
+
 #' \name{pbi_report.conf.int}
 #' \alias{pbi$report.conf.int}
 #' \alias{pbi_report.conf.int}
@@ -2886,6 +2971,8 @@ pbi_report.conf.int <- function (ci,round=2) {
   return(paste('[',round(ci[1],round),',',
                round(ci[2],round),']',sep=''))
 }
+
+pbi$report.conf.int = pbi_report.conf.int
 
 #' \name{pbi_report.pval}
 #' \alias{pbi$report.pval}
@@ -2939,6 +3026,8 @@ pbi_report.pval <- function (p.val,star=FALSE) {
   }   
 }   
 
+pbi$report.pval = pbi_report.pval
+
 #' \name{pbi_sem}
 #' \alias{pbi$sem}
 #' \alias{pbi_sem}
@@ -2965,6 +3054,8 @@ pbi_report.pval <- function (p.val,star=FALSE) {
 pbi_sem <- function(x,na.rm=FALSE) {
   sd(x,na.rm=na.rm)/sqrt(length(x[!is.na(x)])) 
 }
+
+pbi$sem = pbi_sem
 
 #' \name{pbi_searchFasta}
 #' \alias{pbi$searchFasta}
@@ -3017,6 +3108,8 @@ pbi_searchFasta <- function(filename,pattern) {
   }
   return(ids)
 }
+
+pbi$searchFasta = pbi_searchFasta
 
 #' \name{pbi_text2fasta}
 #' \alias{pbi$text2fasta}
@@ -3071,6 +3164,8 @@ pbi_text2fasta <- function (dir,pattern="*",outfile="stdout") {
   close(out)
 }
 
+pbi$text2fasta = pbi_text2fasta
+
 #' \name{pbi_tkregex}
 #' \alias{pbi$tkregex}
 #' \alias{pbi_tkregex}
@@ -3098,6 +3193,8 @@ pbi_tkregex = function () {
     ### without warning, so I moved the tk.app to it's own file
     source(system.file("bin/tkregex.R",package="pbi"))
 }
+
+pbi$tkregex = pbi_tkregex
 
 #' \name{pbi_wordFreq}
 #' \alias{pbi$wordFreq}
@@ -3175,6 +3272,8 @@ pbi_wordFreq = function (seq,wlength=2) {
   }
 }
 
+pbi$wordFreq = pbi_wordFreq
+
 #' \name{pbi_wininstall}
 #' \alias{pbi$wininstall}
 #' \alias{pbi_wininstall}
@@ -3251,6 +3350,8 @@ set /p RS=<\"%~dp0\\Rversion.txt\"
     
   }
 }
+
+pbi$wininstall = pbi_wininstall
 
 #' \name{pbi_xyplot}
 #' \alias{pbi$xyplot}
@@ -3367,26 +3468,7 @@ pbi_xyplot <- function(x,y,col="blue",pch=19,grid=TRUE,
   }
 }
 
-#' \name{testprint}
-#' \alias{testprint}
-#' \title{ print a test message }
-#' \description{
-#'     A test function which prints a string.
-#' }
-#' \usage{ testprint(txt) }
-#' \arguments{
-#'   \item{txt}{ some value to print  }
-#' }
-#' \examples{
-#'     testprint("Hello World!")
-#'     # sample file use
-#'    dec=read.table(file.path(system.file(package="pbi"),"files","decathlon.tab"))
-#'    head(dec)
-#' }
-
-testprint <- function (txt) {
-  print(txt)
-}
+pbi$xyplot = pbi_xyplot
 
 ## Functions or variables starting with uppercase letters
 ## will be per default not export, they can be used as 
