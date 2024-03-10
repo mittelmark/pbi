@@ -1,12 +1,12 @@
 ---
-title: "Vignette for the package ..."
-author: Max Musterman
-date: 2023-09-03 10:09
+title: Vignette for the pbi package
+author: Detlef Groth, University of Potsdam, Germany
+date: 2024-03-10 10:27
 output: 
     rmarkdown::html_vignette:
         toc: true
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Vignette for the pbi package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 include-before: |
@@ -16,8 +16,9 @@ include-before: |
     </style>
 ---
 
-```{r echo=FALSE,results="hide"}
-library(knitr)
+```{r}
+library(pbi)
+ls(pbi)
 ```
 
 ## Introduction
@@ -28,29 +29,4 @@ Below you find example code for the package...
 x=1
 print(x)
 ```
-
-## Plot example
-
-```{r fig=TRUE,fig.width=9,fig.height=6}
-data(iris)
-par(mfrow=c(1,2),mai=rep(0.8,4))
-plot(iris$Sepal.Width~iris$Sepal.Length,
-    col=as.numeric(iris$Species)+1,pch=15)
-plot(iris$Petal.Width~iris$Petal.Length,
-    col=as.numeric(iris$Species)+1,pch=15)
-```
-
-## Table Example
-
-```{r results="asis"}
-knitr::kable(head(iris))
-```
-
-## Inline expression
-
-The dataset iris has `r nrow(iris)` plants.
-
-## EOF
-
-
 

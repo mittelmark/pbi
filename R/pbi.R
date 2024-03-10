@@ -79,7 +79,19 @@
 #' \item \code{\link[pbi:pbi_pcor]{pbi$pcor}} - determine partial correlation
 #' \item \code{\link[pbi:pbi_pcor.test]{pbi$pcor.test}} - test significance of partial correlations
 #' \item \code{\link[pbi:pbi_prosite2regex]{pbi$prosite2regex}} - convert a prosite regular expression into a normal regular expression
-#' \item \code{\link[pbi:pbi_clusterSilhouette]{pbi$clusterSilhouette}} - determine clusterr quality using silhouette index
+#' \item \code{\link[pbi:pbi_protscale]{pbi$protscale}} - protscale plot for sliding window properties of proteins
+#' \item \code{\link[pbi:pbi_readFasta]{pbi$readFasta}} - read fasta file into a list of sequences
+#' \item \code{\link[pbi:pbi_readPepinfo]{pbi$readPepinfo}} - read data from the EMBOSS pepinfo tool
+#' \item \code{\link[pbi:pbi_report.chisq.test]{pbi$report.chisq.test}} - formatted text for a Chisq test
+#' \item \code{\link[pbi:pbi_report.conf.int]{pbi$report.conf.int}} - formatted text to report a confidence interval
+#' \item \code{\link[pbi:pbi_report.pval]{pbi$report.pval}} - formatting a p-value for reports
+#' \item \code{\link[pbi:pbi_sem]{pbi$sem}} - standard error of the mean
+#' \item \code{\link[pbi:pbi_searchFasta]{pbi$searchFasta}} - search a FASTA file with a regular expression
+#' \item \code{\link[pbi:pbi_text2fasta]{pbi$text2fasta}} - convert sequence text into FASTA formatted files
+#' \item \code{\link[pbi:pbi_tkregex]{pbi$tkregex}} - graphical user interface to test regular expressions
+#' \item \code{\link[pbi:pbi_wininstall]{pbi$wininstall}} - install a R script as a executable Batch file on windows
+#' \item \code{\link[pbi:pbi_wordFreq]{pbi$wordFreq}} - determine word frequencies in sequences
+#' \item \code{\link[pbi:pbi_xyplot]{pbi$xyplot}} - improved xy-plot with grid and correlation coefficient
 #' }
 #' }
 #' \examples{
