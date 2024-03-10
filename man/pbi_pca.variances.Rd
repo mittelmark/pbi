@@ -3,7 +3,7 @@
 \alias{pbi_pca.variances} 
 \title{Return the absolute variance contributions for each variable to each component.} 
 \description{ 
-  The function eturn the absolute variance contributions for each variable to each component. 
+  The function returns the absolute variance contributions for each variable to each component. 
   Every squared loading value for each component and variable  is multiplied 
   with the component importance. The sum of the returned matrix is therefor 1. 
 } 
