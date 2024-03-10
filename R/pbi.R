@@ -15,12 +15,12 @@
 #' \details{Some more details:
 #' The following list of objects and/or functions are available:
 #' \describe{
-#' \item{\link[pbi:add]{add(x,y)}}{an illustrative add function}
+#' \item{\link[pbi:pbi]{pbi}}{The pbi environment}
 #' }
 #' }
 #' \examples{
 #' library(pbi)
-#' add(1,2)
+#' ls(pbi)
 #' }
 #' \author{Detlef Groth <dgroth@uni-potsdam.de>}
 #' \references{
@@ -31,6 +31,62 @@
 ""
 
 ## main object:
+#' \docType{class}
+#' \name{pbi}
+#' \alias{pbi}
+#' \alias{pbi-class}
+#' \title{ Environment object with functions for the course Practical Bioinformatics }
+#' \description{
+#' The functions within the pbi environment are utility functions used in the 
+#' course Practical Bioinformatics at the University of Potsdam.
+#' }
+#' \section{Methods}{
+#' \itemize{
+#' \item \code{\link[pbi:pbi_clusterSilhouette]{pbi$clusterSilhouette}} - determine clusterr quality using silhouette index
+#' \item \code{\link[pbi:pbi_clusterSimIndex]{pbi$clusterSimIndex}} - determine clusterr quality using silhouette index
+#' \item \code{\link[pbi:pbi_cohensD]{pbi$cohensD}} - effect size between two means
+#' \item \code{\link[pbi:pbi_cohensH]{pbi$cohensH}} - effect size for a 2x2 contingency table
+#' \item \code{\link[pbi:pbi_cohensW]{pbi$cohensW}} - effect size for a 2x2 o larger contingency tables
+#' \item \code{\link[pbi:pbi_cv]{pbi$cv}} - coefficient of variation
+#' \item \code{\link[pbi:pbi_dassoc]{pbi$dassoc}} - assocplot with residual shading
+#' \item \code{\link[pbi:pbi_dcorr]{pbi$dcorr}} - pairwise correlations and p-values for data frames and matrices
+#' \item \code{\link[pbi:pbi_dcorrplot]{pbi$dcorrplot}} - visualize a pairwise correlation matrix
+#' \item \code{\link[pbi:pbi_df2md]{pbi$df2md}} - convert a data frame or matrix into Markdown code
+#' \item \code{\link[pbi:pbi_dist]{pbi$dist}} - extension of the stats::dist function with more measures for binary data and correlation
+#' \item \code{\link[pbi:pbi_domainplot]{pbi$domainplot}} - plot protein domains similar to those on the prosite website
+#' \item \code{\link[pbi:pbi_dpairs]{pbi$dpairs}} - improved pairs plot considering the data types
+#' \item \code{\link[pbi:pbi_dpairs.legend]{pbi$dpairs.legend}} - adding legends to pairs plots
+#' \item \code{\link[pbi:pbi_epsilonSquared]{pbi$epsilonSquared}} - effect size for comparing three or more means of non-normal data
+#' \item \code{\link[pbi:pbi_etaSquared]{pbi$etaSquared}} - effect size for comparing three or more means of normal data
+#' \item \code{\link[pbi:pbi_file.head]{pbi$file.head}} - show the first lines of a text file
+#' \item \code{\link[pbi:pbi_grect]{pbi$grect}} - add colored background and grid lines to an existing plot
+#' \item \code{\link[pbi:pbi_impute]{pbi$impute}} - missing value imputation
+#' \item \code{\link[pbi:pbi_lmplot]{pbi$lmplot}} - xyplot with regression line and correlation coefficient
+#' \item \code{\link[pbi:pbi_mi]{pbi$mi}} - mutual information
+#' \item \code{\link[pbi:pbi_modelQuality]{pbi$modelQuality}} - model quality for classification and regression models
+#' \item \code{\link[pbi:pbi_modus]{pbi$modus}} - most often qualitative level in a variable
+#' \item \code{\link[pbi:pbi_msa2pwm]{pbi$msa2pwm}} - position weight matrix for an alignment
+#' \item \code{\link[pbi:pbi_mw]{pbi$mw}} - molecular weight of an protein sequence
+#' \item \code{\link[pbi:pbi_package.deps]{pbi$package.deps}} - display package dependencies
+#' \item \code{\link[pbi:pbi_pastel]{pbi$pastel}} - create pastel color scales
+#' \item \code{\link[pbi:pbi_pca.biplot]{pbi$pca.biplot}} - improved biplot for prcomp objects
+#' \item \code{\link[pbi:pbi_pca.corplot]{pbi$pca.corplot}} - correlation plot for original variables and PC's
+#' \item \code{\link[pbi:pbi_pca.pairs]{pbi$pca.pairs}} - improved pairs plot for first PC's
+#' \item \code{\link[pbi:pbi_pca.plot]{pbi$pca.plot}} - screeplot for prcomp objects
+#' \item \code{\link[pbi:pbi_pca.variances]{pbi$pca.variances}} - returns absolute variances for the PC's
+#' \item \code{\link[pbi:pbi_pca.varplot]{pbi$pca.varplot}} - plot variances for the PC's
+#' \item \code{\link[pbi:pbi_pca.toData]{pbi$toData}} - returns the original data for a prcomp object
+#' \item \code{\link[pbi:pbi_pcor]{pbi$pcor}} - determine partial correlation
+#' \item \code{\link[pbi:pbi_pcor.test]{pbi$pcor.test}} - test significance of partial correlations
+#' \item \code{\link[pbi:pbi_prosite2regex]{pbi$prosite2regex}} - convert a prosite regular expression into a normal regular expression
+#' \item \code{\link[pbi:pbi_clusterSilhouette]{pbi$clusterSilhouette}} - determine clusterr quality using silhouette index
+#' }
+#' }
+#' \examples{
+#' set.seed(124)
+#' ls(pbi)
+#' } 
+#'
 
 pbi = new.env()
 
@@ -436,7 +492,7 @@ pbi$dassoc = pbi_dassoc
 #' \title{Calculate pairwise correlations for a given data frame or matrix including their p-values.}
 #' \description{
 #'   The function is an extension to the standard _stats::cor_ function, it calculates as well
-#'   the p-values for the pairwise aoosciations and returns them in a matrix as well.
+#'   the p-values for the pairwise associations and returns them in a matrix as well.
 #' }
 #' \usage{pbi_dcorr(data,method='pearson',use='pairwise.complete.ob')}
 #' \arguments{
@@ -2410,7 +2466,7 @@ pbi$pca.plot = pbi_pca.plot
 #' \alias{pbi_pca.variances}
 #' \title{Return the absolute variance contributions for each variable to each component.}
 #' \description{
-#'   The function eturn the absolute variance contributions for each variable to each component.
+#'   The function returns the absolute variance contributions for each variable to each component.
 #'   Every squared loading value for each component and variable  is multiplied
 #'   with the component importance. The sum of the returned matrix is therefor 1.
 #' }
@@ -2443,7 +2499,7 @@ pbi$pca.variances = pbi_pca.variances
 #' \title{PCA variance plot to total variances for each component and variable.}
 #' \description{
 #'     The function provides a PCA matrix plot to show associations 
-#'   between PCs and variables. Sown are the squared values, but retaining the 
+#'   between PCs and variables. Shown are the squared values, but retaining the 
 #'   original sign of the the variances. So the abolute sum of all values should be one.
 #' }
 #' \usage{pbi_pca.varplot(pca,pcs=10,main="Variance plot",cex.lab=1.5,cex.sym=8, cex.var=1, pch=16,...)}
