@@ -4,7 +4,7 @@
 \title{PCA variance plot to total variances for each component and variable.} 
 \description{ 
     The function provides a PCA matrix plot to show associations  
-  between PCs and variables. Sown are the squared values, but retaining the  
+  between PCs and variables. Shown are the squared values, but retaining the  
   original sign of the the variances. So the abolute sum of all values should be one. 
 } 
 \usage{pbi_pca.varplot(pca,pcs=10,main="Variance plot",cex.lab=1.5,cex.sym=8, cex.var=1, pch=16,...)} 

@@ -65,4 +65,4 @@ unlist(pbi_modelQuality(
    as.factor(c('x','x','v')[as.numeric(iris$Species)]), 
    as.factor(c("x","x","v")[as.numeric(pred)]))) 
 } 
-\seealso{  See also: [pbi](#pbi), [pbi_lmPlot](#lmPlot) } 
+\seealso{  See also: [pbi](#pbi), [pbi_lmplot](#lmPlot) } 

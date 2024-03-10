@@ -5,12 +5,12 @@
 \details{Some more details: 
 The following list of objects and/or functions are available: 
 \describe{ 
-\item{\link[pbi:add]{add(x,y)}}{an illustrative add function} 
+\item{\link[pbi:pbi]{pbi}}{The pbi environment} 
 } 
 } 
 \examples{ 
 library(pbi) 
-add(1,2) 
+ls(pbi) 
 } 
 \author{Detlef Groth <dgroth@uni-potsdam.de>} 
 \references{ 

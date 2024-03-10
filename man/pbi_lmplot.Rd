@@ -1,6 +1,6 @@
-\name{pbi_lmPlot} 
-\alias{pbi$lmPlot} 
-\alias{pbi_lmPlot} 
+\name{pbi_lmplot} 
+\alias{pbi$lmplot} 
+\alias{pbi_lmplot} 
 \title{ Plot a xy-plot with linear model fits and the confidence lines. } 
 \description{ 
     The plot visualizes the linear fit description between numerical variables, 
@@ -8,7 +8,7 @@
   the linear model. The code is based on a tutorial by Conrad Halling (2006).  
   [https://web.archive.org/web/20180415155316/http://sphaerula.com/legacy/R/linearRegression.html](https://web.archive.org/web/20180415155316/http://sphaerula.com/legacy/R/linearRegression.html) 
 } 
-\usage{ pbi_lmPlot(x,y,col="blue",pch=19,col.lm="red",grid=TRUE,...) } 
+\usage{ pbi_lmplot(x,y,col="blue",pch=19,col.lm="red",grid=TRUE,...) } 
 \arguments{ 
   \item{ x }{ 
     vector with numerical variables 
@@ -38,7 +38,7 @@ ins.sens=c(
 250, 220, 145, 115, 230, 200, 330, 400, 370, 260, 270,  
  530, 375) 
  
-pbi_lmPlot(x=c20.22,y=ins.sens, 
+pbi_lmplot(x=c20.22,y=ins.sens, 
    xlab='\%C20-22 Fatty Acids',ylim=c(0,600), 
    xlim=c(17,25),main='best fit', 
    ylab='Insuline Sensitivity Index (mg/m^2/min)') 

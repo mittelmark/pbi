@@ -4,7 +4,7 @@
 \title{Calculate pairwise correlations for a given data frame or matrix including their p-values.} 
 \description{ 
   The function is an extension to the standard _stats::cor_ function, it calculates as well 
-  the p-values for the pairwise aoosciations and returns them in a matrix as well. 
+  the p-values for the pairwise associations and returns them in a matrix as well. 
 } 
 \usage{pbi_dcorr(data,method='pearson',use='pairwise.complete.ob')} 
 \arguments{ 
