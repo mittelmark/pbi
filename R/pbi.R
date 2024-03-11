@@ -10,24 +10,23 @@
 ## package-documentation
 #' \name{pbi-package}
 #' \alias{pbi-package}
-#' \title{pbi package - package template for R packages}
-#' \description{The pbi package can be used as a template to create new packages from scratch.}
+#' \title{The pbi R Package for the Course Practical Bioinformatics}
+#' \description{The pbi package contains functions used in the course
+#' Practical Bioinformatics at the University of Potsdam.}
 #' \details{Some more details:
-#' The following list of objects and/or functions are available:
+#' The following object is available:
 #' \describe{
-#' \item{\link[pbi:pbi]{pbi}}{The pbi environment}
+#' \item{\link[pbi:pbi-class]{pbi-class}}{The pbi environment}
 #' }
+#' All functions can be called in a method like style using the pbi environment 
+#' or in a function style using the \code{pbi_} - prefix. For example the function \code{pbi_cohensD} can be called as well as \code{pbi$cohensD}.
 #' }
 #' \examples{
 #' library(pbi)
 #' ls(pbi)
+#' ls('package:pbi')
 #' }
 #' \author{Detlef Groth <dgroth@uni-potsdam.de>}
-#' \references{
-#' \itemize{
-#'    \item XYZ 
-#' }
-#' }
 ""
 
 ## main object:
@@ -35,7 +34,7 @@
 #' \name{pbi}
 #' \alias{pbi}
 #' \alias{pbi-class}
-#' \title{ Environment object with functions for the course Practical Bioinformatics }
+#' \title{Environment Object with Functions for the Course Practical Bioinformatics}
 #' \description{
 #' The functions within the pbi environment are utility functions used in the 
 #' course Practical Bioinformatics at the University of Potsdam.
@@ -58,6 +57,7 @@
 #' \item \code{\link[pbi:pbi_dpairs.legend]{pbi$dpairs.legend}} - adding legends to pairs plots
 #' \item \code{\link[pbi:pbi_epsilonSquared]{pbi$epsilonSquared}} - effect size for comparing three or more means of non-normal data
 #' \item \code{\link[pbi:pbi_etaSquared]{pbi$etaSquared}} - effect size for comparing three or more means of normal data
+#' \item \code{\link[pbi:pbi_file.cat]{pbi$file.cat}} - show a text file within the R-console
 #' \item \code{\link[pbi:pbi_file.head]{pbi$file.head}} - show the first lines of a text file
 #' \item \code{\link[pbi:pbi_grect]{pbi$grect}} - add colored background and grid lines to an existing plot
 #' \item \code{\link[pbi:pbi_impute]{pbi$impute}} - missing value imputation
@@ -107,7 +107,7 @@ pbi = new.env()
 #' \name{pbi_clusterSilhouette}
 #' \alias{pbi$clusterSilhouette}
 #' \alias{pbi_clusterSilhouette}
-#' \title{Determine the cluster silhouette for given cluster ids and distance matrix.}
+#' \title{Determine Cluster Silhouette Index}
 #' \description{
 #'     This function can be used to determine the strength of a given clustering.
 #'     A silhouette index of larger than 0.7 indicates a strong, 
@@ -142,7 +142,7 @@ pbi$clusterSilhouette = pbi_clusterSilhouette
 #' \name{pbi_clusterSimIndex}
 #' \alias{pbi$clusterSimIndex}
 #' \alias{pbi_clusterSimIndex}
-#' \title{Compute similarity indices of two clusterings.}
+#' \title{Compute Similarity Indices of Two Clusterings}
 #' \description{
 #'   This function computes the similarity indices between two clusterings, 
 #'   such as the Rand, Jaccard and Cohen's Kappa index.
@@ -248,18 +248,18 @@ pbi$clusterSimIndex = pbi_clusterSimIndex
 #' \name{pbi_cohensD}
 #' \alias{pbi$cohensD}
 #' \alias{pbi_cohensD}
-#' \title{ Effect size for the difference between two means.}
+#' \title{Effect size for the difference between two means}
 #' \description{
-#'   The function *pbi_cohensD* calculates the effect size for the difference between two means.
+#'   The function \code{pbi_cohensD} calculates the effect size for the difference between two means.
 #'   Due to Cohen's rule of thumb values of 0.2 to 0.5 are considered to stand 
 #'   for small effects, values from 0.5 to 0.8 represent medium effects and values above 0.8 represent large effects.
 #' }
-#' \usage{pbi_cohensD(num,cat,paired=FALSE)}
+#' \usage{pbi_cohensD(x,y,paired=FALSE)}
 #' \arguments{
-#'   \item{num}{
+#'   \item{x}{
 #'     vector with numerical values
 #'   }
-#'   \item{cat}{
+#'   \item{y}{
 #'     vector with two grouping variables, having the same length as num
 #'   }
 #'   \item{paired}{
@@ -281,9 +281,12 @@ pbi$clusterSimIndex = pbi_clusterSimIndex
 #'   # value is as well large
 #'   cor(c(x1,x2),as.numeric(as.factor(c(g1,g2))))
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_cohensW](#cohensW) }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, \code{\link[pbi:pbi_cohensW]{pbi_cohensW}} 
+#' \code{\link[pbi:pbi_etaSquared]{pbi_etaSquared}}, \code{\link[pbi:pbi_epsilonSquared]{pbi_epsilonSquared}} }
 
-pbi_cohensD <- function (num, cat,paired=FALSE) {
+pbi_cohensD <- function (x, y,paired=FALSE) {
+    num=x
+    cat=y
   if (paired) {
     tt=t.test(num ~ cat,paired=paired)
     return(tt$statistic[[1]]/sqrt(length(num/2)))
@@ -308,9 +311,9 @@ pbi$cohensD = pbi_cohensD
 #' \name{pbi_cohensH}
 #' \alias{pbi$cohensH}
 #' \alias{pbi_cohensH}
-#' \title{Effect size for a 2x2 contingency table.}
+#' \title{Effect size for a 2x2 contingency table}
 #' \description{
-#'   The function *pbi_cohensH* calculates the effect size for 2x2 contingency tables. 
+#'   The function \code{pbi_cohensH} calculates the effect size for 2x2 contingency tables. 
 #'   Due to Cohen's rule of thumb values of 0.2 to 0.5 are considered to stand 
 #'   for small effects, values from 0.5 to 0.8 represent medium effects and values above 0.8 represent large effects. 
 #' }
@@ -328,7 +331,8 @@ pbi$cohensD = pbi_cohensD
 #' colnames(azt)=c("DiseaseProgress", "NoDiseaseProgress")
 #' pbi_cohensH(azt)
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_cohensW](#cohensW) }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+#' \code{\link[pbi:pbi_cohensW]{pbi_cohensW}} }
 
 pbi_cohensH <- function (tab) {
   pt=prop.test(tab)
@@ -342,9 +346,9 @@ pbi$cohensH = pbi_cohensH
 #' \name{pbi_cohensW}
 #' \alias{pbi$cohensW}
 #' \alias{pbi_cohensW}
-#' \title{Effect size for 2x2 and larger contingency tables as well as for single variables.}
+#' \title{Effect size for contingency tables}
 #' \description{
-#'   The function *pbi_cohensW* calculates the effect size for contingency tables. 
+#'   The function \code{pbi_cohensW} calculates the effect size for contingency tables. 
 #'   Due to Cohen's rule of thumb values of 0.1 to 0.3 are considered to stand 
 #'   for small effects, values from 0.3 to 0.5 represent medium effects and values 
 #'   above 0.5 represent large effects.
@@ -378,7 +382,8 @@ pbi$cohensH = pbi_cohensH
 #' pbi_cohensW(c(40,0),p=0.5)
 #' pbi_cohensW(c(40,0),p=c(0.51,0.49)) # max value here around 2*0.49
 #' }
-#' \seealso{  [pbi](#home), [pbi_cohensH](#cohensH) }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+#' \code{\link[pbi:pbi_cohensH]{pbi_cohensH}} }
 
 pbi_cohensW <- function (x,p=NULL) {
   if (is.table(x) | is.matrix(x)) {
@@ -412,10 +417,10 @@ pbi$cohensW = pbi_cohensW
 #' \name{pbi_cv}
 #' \alias{pbi$cv}
 #' \alias{pbi_cv}
-#' \title{Calculate the coefficient of variation.}
+#' \title{Coefficient of variation}
 #' \description{
-#'   The function *pbi_cv* calculates the coefficient of variation, which is
-#'   a unitless measure of data scatter. It is calculated as: _(100*sd(x))/mean(x)_.
+#'   The function \code{pbi_cv} calculates the coefficient of variation, which is
+#'   an unit-less measure of data scatter. It is calculated as: \emph{(100*sd(x))/mean(x)}.
 #'   All data values has to be non-negative.
 #' }
 #' \usage{pbi_cv(x,na.rm=FALSE)}
@@ -434,6 +439,8 @@ pbi$cohensW = pbi_cohensW
 #'   pbi_cv(c(1,2,3,4,NA))
 #'   pbi_cv(c(1,2,3,4,NA),na.rm=TRUE)
 #' }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+#' \code{\link[pbi:pbi_sem]{pbi_sem}} }
 
 pbi_cv = function (x,na.rm=FALSE) {
   cv=100*sd(x,na.rm=na.rm)/mean(x,na.rm=na.rm)
@@ -445,7 +452,7 @@ pbi$cv = pbi_cv
 #' \name{pbi_dassoc}
 #' \alias{pbi$dassoc}
 #' \alias{pbi_dassoc}
-#' \title{Create assocplots with residual coloring.}
+#' \title{Assocplots with residual coloring}
 #' \description{
 #'    This function updates the standard assocplot function from the graphics package 
 #'    with the ability to display residual colors. In blue and red are shown groups with 
@@ -464,7 +471,8 @@ pbi$cv = pbi_cv
 #'   x = margin.table(HairEyeColor, c(1, 2))
 #'   pbi_dassoc(x)
 #' }
-
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}}
+#'
 pbi_dassoc <- function (...,shade=TRUE) {
   # https://stackoverflow.com/questions/38732663/how-to-insert-expression-into-the-body-of-a-function-in-r
   funins <- function(f, expr = expression(x<-2*x), after=1) {
@@ -501,9 +509,9 @@ pbi$dassoc = pbi_dassoc
 #' \name{pbi_dcorr}
 #' \alias{pbi$dcorr}
 #' \alias{pbi_dcorr}
-#' \title{Calculate pairwise correlations for a given data frame or matrix including their p-values.}
+#' \title{Pairwise correlations and their p-values}
 #' \description{
-#'   The function is an extension to the standard _stats::cor_ function, it calculates as well
+#'   The function is an extension to the standard \code{\link[stats:cor]{stats::cor}} function, it calculates as well
 #'   the p-values for the pairwise associations and returns them in a matrix as well.
 #' }
 #' \usage{pbi_dcorr(data,method='pearson',use='pairwise.complete.ob')}
@@ -518,17 +526,21 @@ pbi$dassoc = pbi_dassoc
 #'     how to deal with NA's, default: 'pairwise.complete.obs'
 #'   }
 #' }
-#' \value{return list with the following components:
-#' 
-#' > - _estimate_ - matrix with correlation values
-#'   - _p.value_ - matrix with p-values
-#'   - _method_ - character string with the used correlation method
+#' \value{returns list with the following components:
+#'   \itemize{
+#'      \item \emph{estimate} - matrix with correlation values
+#'      \item \emph{p.value}  - matrix with p-values
+#'      \item \emph{method} - character string with the used correlation method
 #'   }
+#' }
 #' \examples{
 #'   data(swiss)
 #'   lapply(pbi_dcorr(swiss)[1:2],round,2)
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_dcorrplot](#dcorrplot) }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+#' \code{\link[pbi:pbi_dcorrplot]{pbi_dcorrplot}}, \code{\link[pbi:pbi_mi]{pbi_mi}} 
+#' }
+#'
 
 pbi_dcorr <- function (data,method='pearson',use='pairwise.complete.ob') {
   mt=matrix(0,nrow=ncol(data),ncol=ncol(data))
@@ -551,11 +563,12 @@ pbi$dcorr = pbi_dcorr
 #' \name{pbi_dcorrplot}
 #' \alias{pbi$dcorrplot}
 #' \alias{pbi_dcorrplot}
-#' \title{Visualize a correlation matrix.}
+#' \title{Visualize a correlation matrix}
 #' \description{
 #'     Visualize a correlation matrix.
 #' }
-#' \usage{pbi_dcorrplot(mt,text.lower=TRUE, text.upper=FALSE,pch=19,p.mat=NULL,alpha=0.05,cex.sym=5,cex.r=1,cex.lab=1.4,...)}
+#' \usage{pbi_dcorrplot(mt, text.lower=TRUE, text.upper=FALSE, pch=19,
+#'   p.mat=NULL, alpha=0.05, cex.sym=5, cex.r=1, cex.lab=1.4,...)}
 #' \arguments{
 #'   \item{mt}{
 #'     matrix with pairwise correlations
@@ -573,13 +586,13 @@ pbi$dcorr = pbi_dcorr
 #'     matrix with p-values to strike out insignificant p-values, default: NULL (not used)
 #'   }
 #'   \item{alpha}{
-#'     significance threshold for _p.mat_, default: 0.05
+#'     significance threshold for \emph{p.mat}, default: 0.05
 #'   }
 #'   \item{cex.sym}{
 #'     character expansion for the correlation symbols, default: 5
 #'   }
 #'   \item{cex.r}{
-#'     character expansion for the r-values if _text.lower_ or _text.upper_ are set to TRUE, default: 1
+#'     character expansion for the r-values if \emph{text.lower} or \emph{text.upper} are set to TRUE, default: 1
 #'   }
 #'   \item{cex.lab}{
 #'     character expansion for the variable text labels, default: 1.4
@@ -596,7 +609,9 @@ pbi$dcorr = pbi_dcorr
 #'   pbi_dcorrplot(cr$estimate,cex.sym=8,text.lower=TRUE,
 #'      cex.r=1.5,p.mat=cr$p.value)
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_dcorr](#dcorr) }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+#' \code{\link[pbi:pbi_dcorr]{pbi_dcorr}} }
+#'
 
 pbi_dcorrplot <- function (mt,text.lower=TRUE, text.upper=FALSE,
                              pch=19,p.mat=NULL,alpha=0.05,
@@ -653,7 +668,7 @@ pbi$dcorrplot = pbi_dcorrplot
 #' \name{pbi_df2md}
 #' \alias{pbi$df2md}
 #' \alias{pbi_df2md}
-#' \title{Convert a data frame or a matrix into a Markdown table.}
+#' \title{Convert a data frame or a matrix into a Markdown table}
 #' \description{
 #'   This function can be used within Rmarkdown documents to display easily
 #'   a simple Markdown table. For more advance use  cases you should other commands
@@ -676,6 +691,8 @@ pbi$dcorrplot = pbi_dcorrplot
 #'   data(swiss)
 #'   pbi_df2md(head(swiss))
 #' }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}}
+#'
 
 pbi_df2md <- function(x,caption='',rownames=TRUE) {
   df=x
@@ -724,11 +741,12 @@ pbi$df2md = pbi_df2md
 #' \name{pbi_dist}
 #' \alias{pbi$dist}
 #' \alias{pbi_dist}
-#' \title{Distance function which as well supports binary and correlation distances in addition to standard distances.}
+#' \title{Distance function which as well supports binary and correlation distances}
 #' \description{
 #'   This function is an extension to stats::dist function as  it supports as well correlation distance and 
 #'   binary distance measures such as Jaccard coefficient and Matching coefficient. 
-#'   The correlation distance is implemented as `D(i,j) = 1-((r(i,j)+1)/2)` 
+#'   The correlation distance is implemented as 
+#'   \deqn{D_{i,j}  = 1 - \frac{r_{i,j} + 1}{2} }
 #'   so negative correlations have low similarities.
 #' }
 #' \usage{pbi_dist(x,method="euclidean",...)}
@@ -739,11 +757,11 @@ pbi$df2md = pbi_df2md
 #'   }
 #'   \item{method}{
 #'     the distance measure to be used, one of the measures 
-#'     for `stats::dist` such as "euclidean" or "correlation", 
+#'     for \emph{stats::dist} such as "euclidean" or "correlation", 
 #'     alias for  "pearson" or "spearman","kendall", 
 #'     for binary data "jc" (Jaccard) and "mc" (Matching coeffient) are supported.
 #'   }
-#'   \item{...}{
+#'   \item{\ldots}{
 #'     remaining arguments are forwarded to stats::dist function in case the method is 
 #'     handled by this default method. 
 #'   }
@@ -764,7 +782,8 @@ pbi$df2md = pbi_df2md
 #'   d.can=d.can/max(d.can)
 #'   round(d.can,2)
 #' }
-
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}}
+#'
 pbi_dist = function (x,method="euclidean",...) {
   bdist <- function (mt,method='mc') {
     n = ncol(mt)
@@ -808,12 +827,15 @@ pbi$dist = pbi_dist
 #' \name{pbi_domainplot}
 #' \alias{pbi$domainplot}
 #' \alias{pbi_domainplot}
-#' \title{Use the mydomain website of prosite to create a protein domain plot.}
+#' \title{Protein domain plot}
 #' \description{
 #'   This function can be used to draw a plot representing protein domains into a standard R plot.
-#'   The data are send to the website [https://prosite.expasy.org/cgi-bin/prosite/mydomains/](https://prosite.expasy.org/cgi-bin/prosite/mydomains/), a URL is created and the image from this url is downloaded to the local file system. The filename is a CRC32 digest of the URL so allowing to cache as well the downloaded results.
+#'   The data are send to the website \url{https://prosite.expasy.org/cgi-bin/prosite/mydomains/}, 
+#'   a URL is created and the image from this url is downloaded to the local file system. 
+#'   The filename is a CRC32 digest of the URL so allowing to cache as well the downloaded results.
 #' }
-#' \usage{pbi_domainplot(domains,ranges,sites,length=1000,hscale=1,cache=TRUE,plot=TRUE,cex=0.8,...)}
+#' \usage{pbi_domainplot(domains, ranges, sites, length=1000, hscale=1, cache=TRUE, 
+#'     plot=TRUE, cex=0.8, ...)}
 #' \arguments{
 #'   \item{domains}{
 #'     list where names are the domain names and the values are four integers: start, end, shape (1:6), color (1:4)
@@ -851,6 +873,8 @@ pbi$dist = pbi_dist
 #'     sites=list(a=c(150,1)),hscale=2.0,plot=FALSE)
 #' print(url)
 #' }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}}
+#'
 
 pbi_domainplot <- function (domains,ranges,sites,length=1000,hscale=1,cache=TRUE,plot=TRUE,cex=0.8,...) {
   shape <- function (x,y,width=1,height=0.3,type="circle",arrow=TRUE,dir="left") {
@@ -1003,16 +1027,17 @@ pbi$domainplot = pbi_domainplot
 #' \name{pbi_dpairs}
 #' \alias{pbi$dpairs}
 #' \alias{pbi_dpairs}
-#' \title{Improved pairs plot considering the data types.}
+#' \title{Improved pairs plot considering the data types}
 #' \description{
-#'   The function _dpairs_ provides an improved pairs plot which accounts
+#'   The function \code{pbi_dpairs} provides an improved pairs plot which accounts
 #'   for the data type of the actual variables. It will plot in the 
 #'   lower diagonal xy-plots, box-plots or assoc-plots depending on the 
 #'   two data types. In the upper diagonal effect sizes and stars for the p-values
 #'   for the tests (anova, t.test, chisq.test or cor.test) will be shown. In the diagonal 
 #'   the data distribution will be outlined. This plot is usually an useful visualization for 3-8 variables.
 #' }
-#' \usage{pbi_dpairs(data,col.box='grey80',col.xy="grey60",cex.diag=2.5,order=TRUE,pch=19)}
+#' \usage{pbi_dpairs(data, col.box='grey80', col.xy="grey60", cex.diag=2.5, order=TRUE, 
+#'     pch=19)}
 #' \arguments{
 #'   \item{data}{
 #'     data frame with columns of class factor, numeric or integer.
@@ -1061,6 +1086,9 @@ pbi$domainplot = pbi_domainplot
 #'           col=pbi_pastel(3)[as.numeric(as.factor(levels(peng$species)))])
 #'   }
 #' }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+#' \code{\link[pbi:pbi_dpairs.legend]{pbi_dpairs.legend}}}
+#'
 
 pbi_dpairs <- function (data,col.box='grey80',col.xy="grey60",cex.diag=2.5,
                           order=TRUE,pch=19) {
@@ -1206,12 +1234,12 @@ pbi$dpairs = pbi_dpairs
 #' \name{pbi_dpairs.legend}
 #' \alias{pbi$dpairs.legend}
 #' \alias{pbi_dpairs.legend}
-#' \title{Adding legend top or bottom to a _dpairs_ or _pairs_ plot.}
+#' \title{Adding legend top or bottom to a pbi_dpairs or pairs plot}
 #' \description{
-#'     The function _dpairs.legend_ allows the user to place a legend outside of a 
+#'     The function \code{pbi_dpairs.legend} allows the user to place a legend outside of a 
 #'   pairs or dpairs plot.
 #' }
-#' \usage{pbi_dpairs.legend(labels,col='grey80',pch=15,cex=1)}
+#' \usage{pbi_dpairs.legend(labels, col='grey80', pch=15, cex=1)}
 #' \arguments{
 #'   \item{labels}{
 #'     txt labels to be plotted
@@ -1233,6 +1261,9 @@ pbi$dpairs = pbi_dpairs
 #'   pbi_dpairs.legend(levels(iris$Species),col=2:4)
 #'   mtext('Iris Data',side=3,outer=TRUE,cex=2,line=1)
 #' }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+#' \code{\link[pbi:pbi_dpairs]{pbi_dpairs}}}
+#'
 
 pbi_dpairs.legend <- function (labels,col='grey80',pch=15,cex=1) {
   opar=par()
@@ -1249,9 +1280,9 @@ pbi$dpairs.legend = pbi_dpairs.legend
 #' \name{pbi_epsilonSquared}
 #' \alias{pbi$epsilonSquared}
 #' \alias{pbi_epsilonSquared}
-#' \title{Calculate the effect size epsilon-squared for variables of a kruskal.test}
+#' \title{Effect size epsilon-squared for variables of a kruskal.test}
 #' \description{
-#'     Cohen's rule of thumb for interpretation is: 0.01-0.09 small, 0.09-0.25 medium and above 0.25 large effect. You can convert epsilon-squared to a Spearman _r_ by using the square root of epsilon-square.
+#'     Cohen's rule of thumb for interpretation is: 0.01-0.09 small, 0.09-0.25 medium and above 0.25 large effect. You can convert epsilon-squared to a Spearman \emph{rho} by using the square root of epsilon-square.
 #' }
 #' \usage{pbi_epsilonSquared(x,y)}
 #' \arguments{
@@ -1273,7 +1304,9 @@ pbi$dpairs.legend = pbi_dpairs.legend
 #'   # close to r-square of spearman!
 #'   cor(ToothGrowth$len,ToothGrowth$dose,method="spearman")^2
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_etaSquared](#etaSquared) }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+#' \code{\link[pbi:pbi_cohensD]{pbi_cohensD}}, \code{\link[pbi:pbi_etaSquared]{pbi_etaSquared}}}
+#'
 
 pbi_epsilonSquared <- function (x,y) {
   if (class(y) %in% c("numeric","integer")) {
@@ -1292,9 +1325,9 @@ pbi$epsilonSquared = pbi_epsilonSquared
 #' \name{pbi_etaSquared}
 #' \alias{pbi$etaSquared}
 #' \alias{pbi_etaSquared}
-#' \title{Calculate the effect size eta-squared for an Anova or a linear model. }
+#' \title{Effect size eta-squared for an Anova or a linear model object}
 #' \description{
-#'     Cohen's rule of thumb for interpretation is: 0.01-0.09 small, 0.09-0.25 medium and above 0.25 large effect. You can convert eta-squared to a Pearson r by using the sqrt of eta-square.
+#'     Cohen's rule of thumb for interpretation is: 0.01-0.09 small, 0.09-0.25 medium and above 0.25 large effect. You can convert eta-squared to a Pearson \emph{r} by using the square root of eta-squared.
 #' }
 #' \usage{pbi_etaSquared(x,y=NULL)}
 #' \arguments{
@@ -1314,7 +1347,9 @@ pbi$epsilonSquared = pbi_epsilonSquared
 #'   etaSquared(aov(iris$Sepal.Length ~ iris$Species))
 #'   etaSquared(aov(Sepal.Length ~ Species+Sepal.Width,data=iris))
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_cohensD](#cohensD) }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+#' \code{\link[pbi:pbi_cohensD]{pbi_cohensD}}, \code{\link[pbi:pbi_epsilonSquared]{pbi_epsilonSquared}}}
+#'
 
 pbi_etaSquared <- function (x,y=NULL) {
   if (class(x)[1] == "lm") {
@@ -1335,7 +1370,7 @@ pbi_etaSquared <- function (x,y=NULL) {
     return(sq)
   } else if (class(x)[1] == "numeric" & class(y)[1] == "factor") {
     mod=aov(x~y)
-    return(pbi_etaSquared(mod))
+    return(as.vector(pbi_etaSquared(mod)))
     
   } else {
     stop("Error: wrong call of 'etaSquared'! Call either 'etaSquared(num,factor)' or with 'etaSquared(lm(num~factor))'!")
@@ -1344,12 +1379,41 @@ pbi_etaSquared <- function (x,y=NULL) {
 
 pbi$etaSquared = pbi_etaSquared
 
+#' \name{pbi_file.cat}
+#' \alias{pbi$file.cat}
+#' \alias{pbi_file.cat}
+#' \title{Displays a file to the terminal}
+#' \description{
+#'     Displays the a file to the terminal. Works in a platform independent way.
+#' }
+#' \usage{pbi_file.cat(filename)}
+#' \arguments{
+#'   \item{filename}{
+#'     filename of a text file
+#'   }
+#' }
+#' \examples{
+#'   head(pbi_file.cat(system.file(
+#'   "files/pepinfo-spike-sars2.txt",package="pbi")),n=10)
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_file.head]{pbi_file.head}}
+#' }
+#' 
+
+pbi_file.cat <- function (filename) {
+    return(paste(paste(readLines(filename),
+                           collapse="\n")))
+}
+pbi$file.cat = pbi_file.cat
+
 #' \name{pbi_file.head}
 #' \alias{pbi$file.head}
 #' \alias{pbi_file.head}
 #' \title{Displays the first n lines of a file to the terminal}
 #' \description{
-#'     Displays the first n lines of a file to the terminal
+#'     Displays the first \emph{n} lines of a file to the terminal.
 #' }
 #' \usage{pbi_file.head(filename,n=6)}
 #' \arguments{
@@ -1364,7 +1428,11 @@ pbi$etaSquared = pbi_etaSquared
 #'   pbi_file.head(system.file(
 #'   "files/pepinfo-spike-sars2.txt",package="pbi"))
 #' }
-#' \seealso{  See also [sbi$file.cat](#file.cat) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_file.cat]{pbi_file.cat}}
+#' }
+#' 
 
 pbi_file.head = function (filename,n=6) {
   if (!file.exists(filename)) {
@@ -1381,7 +1449,7 @@ pbi$file.head = pbi_file.head
 #' \name{pbi_grect}
 #' \alias{pbi$grect}
 #' \alias{pbi_grect}
-#' \title{Adds colored background and grid lines to an existing plot}
+#' \title{Colored background and grid lines for a plot}
 #' \description{The function can be used to add a background color to existing plots.
 #'   In case the plotting was already done you should add a very transparent color, 
 #'   using for instance 33 as the last two digits for a RGB color.
@@ -1403,7 +1471,9 @@ pbi$file.head = pbi_file.head
 #'   pbi_grect(col="#ffe0e0",grid=TRUE)
 #'   points(iris[,1:2],col=as.numeric(iris$Species)+1,pch=19)
 #' }
-#' \seealso{  See also: [pbi](#pbi), [pbi_xyplot](#xyplot) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}
+#' }
 
 pbi_grect = function (col="#c0c0c033",grid=FALSE) {
   bods=par("usr")
@@ -1419,8 +1489,7 @@ pbi$grect = pbi_grect
 #' \name{pbi_impute}
 #' \alias{pbi$impute}
 #' \alias{pbi_impute}
-#' \title{ Missing value imputation using mean, rpart or knn methods.
-#' }
+#' \title{Missing value imputation using mean, rpart or knn methods}
 #' \description{
 #'     Replaces missing values with a reasonable guess by different imputation methods such as 
 #'   the simple and not recommended methods mean and median, where NA's are replaced with the 
@@ -1460,9 +1529,12 @@ pbi$grect = pbi_grect
 #'   cor(as.matrix(iris[,1:4])[is.na(irc)],irknn[is.na(irc)])  
 #'   cor(as.matrix(iris[,1:4])[is.na(irc)],irrpt[is.na(irc)])  
 #' }
-#' \seealso{  See also: [pbi](#pbi) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}
+#' }
 
 pbi_impute <- function (x,method="mean",k=5,cor.method="spearman")  {   
+  was.matrix=is.matrix(x)  
   if (method %in% c("mean","median")) {
     for (i in 1:ncol(x)) {
       # integer is as well numeric :) so 
@@ -1482,6 +1554,9 @@ pbi_impute <- function (x,method="mean",k=5,cor.method="spearman")  {
     # TODO: refinement for many variables, 
     # take only variables with high absolute correlation
     # into account if more than 10 variables take top 10
+    if (is.matrix(x)) {
+        x=as.data.frame(x)
+    }
     for (i in 1:ncol(x)) {
       idx = which(!is.na(x[,i]))
       if (length(idx) == nrow(x)) {
@@ -1522,7 +1597,11 @@ pbi_impute <- function (x,method="mean",k=5,cor.method="spearman")  {
   } else {
     stop("Unknown method, choose either mean, median, knn or rpart")
   } 
-  return(x)
+  if (is.data.frame(x) & was.matrix) {
+      return(as.matrix(x))
+  } else {
+      return(x)
+  }
 }
 
 pbi$impute = pbi_impute
@@ -1530,14 +1609,14 @@ pbi$impute = pbi_impute
 #' \name{pbi_lmplot}
 #' \alias{pbi$lmplot}
 #' \alias{pbi_lmplot}
-#' \title{ Plot a xy-plot with linear model fits and the confidence lines. }
+#' \title{ XY-plot with linear model fits and confidence lines}
 #' \description{
 #'     The plot visualizes the linear fit description between numerical variables,
 #'   together with the confidence limits for the predictions as well as for
-#'   the linear model. The code is based on a tutorial by Conrad Halling (2006). 
-#'   [https://web.archive.org/web/20180415155316/http://sphaerula.com/legacy/R/linearRegression.html](https://web.archive.org/web/20180415155316/http://sphaerula.com/legacy/R/linearRegression.html)
+#'   the linear model. The code is based on a tutorial by Conrad Halling (2006), see 
+#'   \href{https://web.archive.org/web/20180415155316/http://sphaerula.com/legacy/R/linearRegression.html}{http://sphaerula.com/legacy/R/linearRegression.html}
 #' }
-#' \usage{ pbi_lmplot(x,y,col="blue",pch=19,col.lm="red",grid=TRUE,...) }
+#' \usage{ pbi_lmplot(x, y, col="blue", pch=19, col.lm="red", grid=TRUE, ...) }
 #' \arguments{
 #'   \item{ x }{
 #'     vector with numerical variables
@@ -1573,10 +1652,13 @@ pbi$impute = pbi_impute
 #'    ylab='Insuline Sensitivity Index (mg/m^2/min)')
 #' 
 #' legend('bottomright',c('best fit','fit 95\% CI',
-#' 'prediction 95\% CI'),lty=c(1,2,2),
-#' col=c('red','red','blue'))
+#'        'prediction 95\% CI'),lty=c(1,2,2),
+#'        col=c('red','red','blue'))
 #' }
-#' \seealso{  See also: [pbi](#pbi), [pbi_modelQuality](#modelQuality) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_modelQuality]{pbi_modelQuality}}
+#' }
 
 pbi_lmplot = function (x,y, col="blue",pch=19,col.lm="red",grid=TRUE,...) {
   df <- data.frame(x=x,y=y)
@@ -1610,7 +1692,7 @@ pbi$lmplot = pbi_lmplot
 #' \name{pbi_mi}
 #' \alias{pbi$mi}
 #' \alias{pbi_mi}
-#' \title{ Return the mutual information for two vectors or a binned table. }
+#' \title{Mutual information for two vectors or a binned table}
 #' \description{
 #'     Returns: mutual information value, or matrix of all pairwise values in case input  is matrix or data frame
 #' }
@@ -1643,6 +1725,10 @@ pbi$lmplot = pbi_lmplot
 #' mii=pbi_mi(iris[,1:4])
 #' round(mii/diag(mii),2)
 #' round(cor(iris[,1:4]),2)
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_dcorr]{pbi_dcorr}}
 #' }
 
 pbi_mi = function (x,y=NULL,breaks=4) {
@@ -1677,7 +1763,7 @@ pbi$mi = pbi_mi
 #' \name{pbi_modelQuality}
 #' \alias{pbi$modelQuality}
 #' \alias{pbi_modelQuality}
-#' \title{ Quality measures for determining model qualitiy. }
+#' \title{Quality measures for regression and classification models}
 #' \description{
 #'   The functions returns a few basic model quality measures 
 #'   such as RMSE, MSE and MAE in case the data in x and y are numeric, 
@@ -1741,7 +1827,10 @@ pbi$mi = pbi_mi
 #'    as.factor(c('x','x','v')[as.numeric(iris$Species)]),
 #'    as.factor(c("x","x","v")[as.numeric(pred)])))
 #' }
-#' \seealso{  See also: [pbi](#pbi), [pbi_lmplot](#lmPlot) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_lmplot]{pbi_lmplot}}
+#' }
 
 pbi_modelQuality = function (x,y) {
   mse = function (x,p) { # outlier sensitive
@@ -1780,7 +1869,7 @@ pbi$modelQuality = pbi_modelQuality
 #' \name{pbi_modus}
 #' \alias{pbi$modus}
 #' \alias{pbi_modus}
-#' \title{ Return the most often level in a categorical variable. }
+#' \title{Most often level in a categorical variable}
 #' \description{ Simple implementation of returning the most most often appearinglevel(s) of a categorical variable. }
 #' \usage{ pbi_modus(x) }
 #' \arguments{
@@ -1792,6 +1881,8 @@ pbi$modelQuality = pbi_modelQuality
 #' \examples{
 #'   pbi_modus(c('A','A','B','C'))
 #'   pbi_modus(c('A','A','B','B','C'))
+#' }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}
 #' }
 
 pbi_modus = function (x) {
@@ -1806,9 +1897,9 @@ pbi$modus = pbi_modus
 #' \name{pbi_msa2pwm}
 #' \alias{pbi$msa2pwm}
 #' \alias{pbi_msa2pwm}
-#' \title{Calculates PFM, PPM and PWM for the given alignment file.}
+#' \title{PFM, PPM and PWM for a alignment file}
 #' \description{
-#'     Implementation is partially derived from Dave Tang, see: https://davetang.org/muse/2013/10/01/position-weight-matrix/
+#'     Implementation is partially derived from Dave Tang, see: \url{https://davetang.org/muse/2013/10/01/position-weight-matrix/}
 #' }
 #' \usage{pbi_msa2pwm(filename)}
 #' \arguments{
@@ -1817,10 +1908,13 @@ pbi$modus = pbi_modus
 #'   }
 #' }
 #' \value{return list with the following components:
-#'   - PFM - Position frequency matrix
-#'   - PPM - Position probability matrix
-#'   - PWM - Position weight matrix
-#'   - PWMPC - Position weight matrix with added pseudocounts (untested)}
+#' \itemize{
+#'   \item{PFM - Position frequency matrix}
+#'   \item{PPM - Position probability matrix}
+#'   \item{PWM - Position weight matrix}
+#'   \item{PWMPC -  Position weight matrix with added pseudocounts (untested)}
+#' }
+#' }
 #' \examples{
 #' # data example: https://en.wikipedia.org/wiki/Position_weight_matrix
 #'   cat("GAGGTAAAC
@@ -1835,6 +1929,10 @@ pbi$modus = pbi_modus
 #' AAGGTAAGT
 #' ",file="test.clu")
 #' lapply(pbi_msa2pwm("test.clu"),round,2)
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_mw]{pbi_mw}}, \code{\link[pbi:pbi_readFasta]{pbi_readFasta}}
 #' }
 
 pbi_msa2pwm <- function (filename) {
@@ -1883,7 +1981,7 @@ pbi$msa2pwm = pbi_msa2pwm
 #' \name{pbi_mw}
 #' \alias{pbi$mw}
 #' \alias{pbi_mw}
-#' \title{ Determine the molecular weight for a given sequence (sequences). }
+#' \title{Molecular weight for a given sequence}
 #' \description{Calculates and returns the molecular weight for a given amino acid sequence.}
 #' \usage{ pbi_mw(seq)}
 #' \arguments{
@@ -1895,6 +1993,10 @@ pbi$msa2pwm = pbi_msa2pwm
 #' \examples{
 #'   pbi_mw("AACTLIS")
 #'   pbi_mw("A")
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_readFasta]{pbi_readFasta}}
 #' }
 pbi_mw <- function (seq) {
   tab=read.table(text='
@@ -1931,7 +2033,7 @@ pbi$mw = pbi_mw
 #' \name{pbi_package.deps}
 #' \alias{pbi$package.deps}
 #' \alias{pbi_package.deps}
-#' \title{ Return the packages which are required by the given package name. }
+#' \title{Package(s) which are required by the given package name}
 #' \description{The function helps in identifying the nested package dependencies for a given package.}
 #' \usage{ pbi_package.deps(pkgName,mode='all') }
 #' \arguments{
@@ -1951,6 +2053,9 @@ pbi$mw = pbi_mw
 #'     pbi_package.deps('igraph',mode='nonbase')
 #'     pbi_package.deps('igraph',mode='all')
 #'  }
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}
 #' }
 
 pbi_package.deps <- function(pkgName,mode='all')  {
@@ -1985,7 +2090,7 @@ pbi$package.deps = pbi_package.deps
 #' \name{pbi_pastel}
 #' \alias{pbi$pastel}
 #' \alias{pbi_pastel}
-#' \title{ Create up to 20 pastel colors }
+#' \title{Up to 20 pastel colors}
 #' \description{
 #'   This is an alternative color creation function for R versions before 3.6 where 
 #'   the function `hcl.colors` is not available.
@@ -2001,6 +2106,9 @@ pbi$package.deps = pbi_package.deps
 #' pbi_pastel(4)
 #' par(mai=c(0.2,0.2,0.2,0.1))
 #' plot(1:20,col=pbi_pastel(20),cex=3,pch=15)
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}
 #' }
 
 pbi_pastel <- function (n) {
@@ -2018,15 +2126,17 @@ pbi$pastel = pbi_pastel
 #' \name{pbi_pca.biplot}
 #' \alias{pbi$pca.biplot}
 #' \alias{pbi_pca.biplot}
-#' \title{Improved biplot for pca objects.}
+#' \title{Improved biplot for prcomp objects}
 #' \description{
-#'   The function _pca.biplot_ provides an improved biblot for
+#'   The function \code{pca.biplot} provides an improved biblot for
 #'   visualizing the pairwise scores of individual principal components of 
 #'   an object created using the function _prcomp_. In contrast to the default 
 #'   biplot function  this plot visualizes the data as points and not row numbers,
 #'   it allows to display groups using color codes and distribution ellipses.
 #' }
-#' \usage{pbi_pca.biplot(pca,pcs=c("PC1","PC2"),pch=19,col='black',text=NULL,arrows=TRUE,arrow.fac=1,arrow.n=-1,ellipse=FALSE,ell.fill=FALSE,xlab=NULL,ylab=NULL,grid=TRUE,scale=NULL,...)}
+#' \usage{pbi_pca.biplot(pca,pcs=c("PC1","PC2"), pch=19, col='black', text=NULL,
+#'     arrows=TRUE, arrow.fac=1, arrow.n=-1, ellipse=FALSE, ell.fill=FALSE, 
+#'     xlab=NULL, ylab=NULL, grid=TRUE, scale=NULL, ...)}
 #' \arguments{
 #'   \item{pca}{
 #'     pca object of class _prcomp_, created using the function _prcomp_.
@@ -2094,6 +2204,15 @@ pbi$pastel = pbi_pastel
 #'         col=col,ellipse=TRUE,text=substr(rownames(swiss),1,3))
 #'   pbi_pca.biplot(pcs,arrow.fac=2,grid=TRUE, 
 #'        col=col,text=substr(rownames(swiss),1,3),scale=asinh,arrows=FALSE)
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_pca.corplot]{pbi_pca.corplot}}, 
+#' \code{\link[pbi:pbi_pca.pairs]{pbi_pca.pairs}}, 
+#' \code{\link[pbi:pbi_pca.plot]{pbi_pca.plot}},
+#' \code{\link[pbi:pbi_pca.toData]{pbi_pca.toData}},
+#' \code{\link[pbi:pbi_pca.variances]{pbi_pca.variances}},
+#' \code{\link[pbi:pbi_pca.varplot]{pbi_pca.varplot}}
 #' }
 
 pbi_pca.biplot = function (pca,pcs=c("PC1","PC2"),
@@ -2181,7 +2300,7 @@ pbi$pca.biplot = pbi_pca.biplot
 #' \name{pbi_pca.corplot}
 #' \alias{pbi_pca.corplot}
 #' \alias{pbi$pca.corplot}
-#' \title{PCA correlation plot to show association between PCs and variables.}
+#' \title{PCA correlation plot}
 #' \description{
 #'   The function provides a PCA correlation plot to show associations 
 #'   between PCs and variables. The closer a variable to the PC coordinate 
@@ -2193,7 +2312,7 @@ pbi$pca.biplot = pbi_pca.biplot
 #' \usage{pbi_pca.corplot(pca,pcs=c("PC1","PC2"), main="Correlation plot",cex=NULL,nvar=64,...)}
 #' \arguments{
 #'   \item{pca}{
-#'     pca object which was created using the function _prcomp_.
+#'     pca object which was created using the function \code{prcomp}.
 #'   }
 #'   \item{pcs}{
 #'     vector of two PCs to be plotted against each other, default: c('PC1','PC2')
@@ -2207,7 +2326,7 @@ pbi$pca.biplot = pbi_pca.biplot
 #'   \item{nvar}{
 #'     number of variables which will be displayed, for both components the variables which contributes mostly to the variances will be used, default: 64.
 #'   }
-#'   \item{...}{
+#'   \item{\ldots}{
 #'     remaining arguments are delegated to the standard plot function
 #'   }
 #' }
@@ -2220,6 +2339,15 @@ pbi$pca.biplot = pbi_pca.biplot
 #' data(swiss)
 #' pca=prcomp(swiss,scale.=TRUE)
 #' pbi_pca.corplot(pca)
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_pca.biplot]{pbi_pca.biplot}}, 
+#' \code{\link[pbi:pbi_pca.pairs]{pbi_pca.pairs}}, 
+#' \code{\link[pbi:pbi_pca.plot]{pbi_pca.plot}},
+#' \code{\link[pbi:pbi_pca.toData]{pbi_pca.toData}},
+#' \code{\link[pbi:pbi_pca.variances]{pbi_pca.variances}},
+#' \code{\link[pbi:pbi_pca.varplot]{pbi_pca.varplot}}
 #' }
 
 pbi_pca.corplot = function (pca,pcs=c("PC1","PC2"), main="Correlation plot",cex=NULL,nvar=64,...) {
@@ -2290,18 +2418,18 @@ pbi$pca.corplot = pbi_pca.corplot
 #' \name{pbi_pca.pairs}
 #' \alias{pbi$pca.pairs}
 #' \alias{pbi_pca.pairs}
-#' \title{Improved pairs plot for pca objects.}
+#' \title{Improved pairs plot for prcomp objects}
 #' \description{
-#'   The function _pca.pairs_ provides an improved pairs plot for
+#'   The function \code{pbi_pca.pairs} provides an improved pairs plot for
 #'   visualizing the pairwise scores of the individual components of an analyses 
-#'   using the function _prcomp_. In contrast to the default pairs function 
+#'   using the function \code{prcomp}. In contrast to the default pairs function 
 #'   this plot visualizes in the diagonal as well the variances and 
 #'   a density line for the component scores.
 #' }
-#' \usage{pbi_pca.pairs(pca,n=10,groups=NULL,col='black',pch=19,legend=FALSE,...)}
+#' \usage{pbi_pca.pairs(pca, n=10, groups=NULL, col='black', pch=19, legend=FALSE, ...)}
 #' \arguments{
 #'   \item{pca}{
-#'     pca object which was created using the function _prcomp_.
+#'     pca object which was created using the function \code{prcomp}.
 #'   }
 #'   \item{n}{
 #'     maximal number of components to visualize, default: 10
@@ -2318,8 +2446,8 @@ pbi$pca.corplot = pbi_pca.corplot
 #'   \item{legend}{
 #'     should the legend be displayed on top, default: FALSE
 #'   }
-#'   \item{...}{
-#'     additional arguments delegated to the standard _pairs_ function
+#'   \item{\ldots}{
+#'     additional arguments delegated to the standard \code{pairs} function
 #'   }
 #' }
 #' \examples{
@@ -2327,6 +2455,15 @@ pbi$pca.corplot = pbi_pca.corplot
 #'   pci=prcomp(iris[,1:4],scale=TRUE)
 #'   pbi_pca.pairs(pci,pch=15,groups=iris[,5],
 #'      legend=TRUE,oma=c(5,4,4,4),col=as.numeric(iris[,5])+1)
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_pca.biplot]{pbi_pca.biplot}}, 
+#' \code{\link[pbi:pbi_pca.corplot]{pbi_pca.corplot}}, 
+#' \code{\link[pbi:pbi_pca.plot]{pbi_pca.plot}},
+#' \code{\link[pbi:pbi_pca.toData]{pbi_pca.toData}},
+#' \code{\link[pbi:pbi_pca.variances]{pbi_pca.variances}},
+#' \code{\link[pbi:pbi_pca.varplot]{pbi_pca.varplot}}
 #' }
 
 N = new.env()
@@ -2385,17 +2522,18 @@ pbi$pca.pairs = pbi_pca.pairs
 #' \name{pbi_pca.plot}
 #' \alias{pbi$pca.plot}
 #' \alias{pbi_pca.plot}
-#' \title{Improved bar or screeplot for pca objects.}
+#' \title{Improved bar or screeplot for prcomp objects}
 #' \description{
-#'   The function _pca.plot_ provides an improved bar- or screeplot for
+#'   The function \code{pbi_pca.plot} provides an improved bar- or screeplot for
 #'   visualizing the variances of the individual components of an analyses 
-#'   using the function _prcomp_. In contrast to the default plot function 
+#'   using the function \code{prcomp}. In contrast to the default plot function 
 #'   this plot visualize cumulative and individual variances in percent.
 #' }
-#' \usage{pbi_pca.plot(pca,n=10,type="bar", cex=1.5, legend=TRUE,xlab="Components",ylab="Variance (\%)",pc.col=c("light blue","grey"),...)}
+#' \usage{pbi_pca.plot(pca, n=10, type="bar", cex=1.5, legend=TRUE, 
+#'     xlab="Components", ylab="Variance (\%)", pc.col=c("light blue","grey"), ...)}
 #' \arguments{
 #'   \item{pca}{
-#'     pca object which was created using the function _prcomp_.
+#'     pca object which was created using the function \code{prcomp}
 #'   }
 #'   \item{n}{
 #'     maximal number of components to visualize, default: 10
@@ -2410,10 +2548,10 @@ pbi$pca.pairs = pbi_pca.pairs
 #'     should the legend be displayed on top, default: TRUE
 #'   }
 #'   \item{xlab}{
-#'     
+#'     label given to the x-axis, default: 'Components'
 #'   }
 #'   \item{ylab}{
-#'     
+#'     label given to the y-axis, default: 'Variance (\%)'
 #'   }
 #'   \item{pc.col}{
 #'     colors for the PC variances, first individual, second color for the cumulative variance, default: c("light blue","grey")
@@ -2429,6 +2567,15 @@ pbi$pca.pairs = pbi_pca.pairs
 #'   pbi_pca.plot(pcai)
 #'   pbi_pca.plot(pcai,type="scree",legend=FALSE)
 #' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_pca.biplot]{pbi_pca.biplot}}, 
+#' \code{\link[pbi:pbi_pca.corplot]{pbi_pca.corplot}}, 
+#' \code{\link[pbi:pbi_pca.pairs]{pbi_pca.pairs}},
+#' \code{\link[pbi:pbi_pca.toData]{pbi_pca.toData}},
+#' \code{\link[pbi:pbi_pca.variances]{pbi_pca.variances}},
+#' \code{\link[pbi:pbi_pca.varplot]{pbi_pca.varplot}}
+#' }
 
 pbi_pca.plot = function (pca,n=10,type="bar", cex=1.5, 
                            legend=TRUE,xlab="Components",ylab="Variance (%)",
@@ -2437,7 +2584,7 @@ pbi_pca.plot = function (pca,n=10,type="bar", cex=1.5,
     n=ncol(pca$x)
   }
   if (legend) {
-    ylim=c(0,120)
+    ylim=c(0,130)
   } else {
     ylim=c(0,105)
   }
@@ -2466,7 +2613,7 @@ pbi_pca.plot = function (pca,n=10,type="bar", cex=1.5,
   abline(h=95,lty=2,lwd=0.5)    
   abline(h=100,lty=1,lwd=0.5)    
   if (legend) {
-    legend("topleft",c("Component","Cumulative"),col=pc.col,pch=15,cex=1.5,box.lwd=0,ncol=2)
+    legend("topleft",c("Component","Cumulative"),col=pc.col,pch=15,cex=1.2,box.lwd=0,ncol=2)
   }
   box()
 }
@@ -2476,7 +2623,7 @@ pbi$pca.plot = pbi_pca.plot
 #' \name{pbi_pca.variances}
 #' \alias{pbi$pca.variances}
 #' \alias{pbi_pca.variances}
-#' \title{Return the absolute variance contributions for each variable to each component.}
+#' \title{Absolute variance contributions of variables to PC's}
 #' \description{
 #'   The function returns the absolute variance contributions for each variable to each component.
 #'   Every squared loading value for each component and variable  is multiplied
@@ -2494,7 +2641,15 @@ pbi$pca.plot = pbi_pca.plot
 #' round(pbi_pca.variances(pca),2)
 #' sum(pbi_pca.variances(pca))
 #' }
-#' \seealso{  See also [pbi](#pbi), [pbi$pca.varplot](#pca.varplot) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_pca.biplot]{pbi_pca.biplot}}, 
+#' \code{\link[pbi:pbi_pca.corplot]{pbi_pca.corplot}}, 
+#' \code{\link[pbi:pbi_pca.pairs]{pbi_pca.pairs}},
+#' \code{\link[pbi:pbi_pca.plot]{pbi_pca.plot}},
+#' \code{\link[pbi:pbi_pca.toData]{pbi_pca.toData}},
+#' \code{\link[pbi:pbi_pca.varplot]{pbi_pca.varplot}}
+#' }
 
 pbi_pca.variances = function (pca) {
   imp=summary(pca)$importance[2,]
@@ -2508,16 +2663,17 @@ pbi$pca.variances = pbi_pca.variances
 #' \name{pbi_pca.varplot}
 #' \alias{pbi$pca.varplot}
 #' \alias{pbi_pca.varplot}
-#' \title{PCA variance plot to total variances for each component and variable.}
+#' \title{PCA variance plot}
 #' \description{
 #'     The function provides a PCA matrix plot to show associations 
 #'   between PCs and variables. Shown are the squared values, but retaining the 
 #'   original sign of the the variances. So the abolute sum of all values should be one.
 #' }
-#' \usage{pbi_pca.varplot(pca,pcs=10,main="Variance plot",cex.lab=1.5,cex.sym=8, cex.var=1, pch=16,...)}
+#' \usage{pbi_pca.varplot(pca, pcs=10, main="Variance plot", cex.lab=1.5, cex.sym=8, 
+#'         cex.var=1, pch=16, ...)}
 #' \arguments{
 #'   \item{pca}{
-#'     pca object which was created using the function _prcomp_.
+#'     pca object which was created using the function \code{prcomp}
 #'   }
 #'   \item{pcs}{
 #'     number of the first PC's or vector of PC names to be plotted, default: 10 (or max number of PC's)
@@ -2537,7 +2693,7 @@ pbi$pca.variances = pbi_pca.variances
 #'   \item{pch}{
 #'     plotting character for the variances, default: 16 (filled circle)
 #'   }
-#'   \item{...}{
+#'   \item{\ldots}{
 #'     remaining arguments are delegated to the standard plot function
 #'   }
 #' }
@@ -2549,7 +2705,17 @@ pbi$pca.variances = pbi_pca.variances
 #' round(pbi_pca.variances(pca),3)
 #' pbi_pca.varplot(pca,cex.sym=5,cex.var=0.7,cex.lab=1)
 #' }
-#' \seealso{  See also [pbi](#pbi), [pbi$pca.variances](#pca.variances) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_pca.biplot]{pbi_pca.biplot}}, 
+#' \code{\link[pbi:pbi_pca.corplot]{pbi_pca.corplot}}, 
+#' \code{\link[pbi:pbi_pca.pairs]{pbi_pca.pairs}},
+#' \code{\link[pbi:pbi_pca.plot]{pbi_pca.plot}},
+#' \code{\link[pbi:pbi_pca.toData]{pbi_pca.toData}},
+#' \code{\link[pbi:pbi_pca.variances]{pbi_pca.variances}},
+#' \code{\link[pbi:pbi_pca.varplot]{pbi_pca.varplot}}
+#' }
+
 
 pbi_pca.varplot = function (pca,pcs=10,main="Variance plot",
                               cex.lab=1.5,cex.sym=8, cex.var=1, pch=16,
@@ -2589,7 +2755,7 @@ pbi$pca.varplot = pbi_pca.varplot
 #' \name{pbi_pca.toData}
 #' \alias{pbi$pca.toData}
 #' \alias{pbi_pca.toData}
-#' \title{Transform prcomp pca object  back to data.}
+#' \title{Transform prcomp PCA objects  back to data}
 #' \description{
 #'   The method allows you transform PCA data back to original data. 
 #'   This can be as well used to eliminate some components and then create
@@ -2598,7 +2764,7 @@ pbi$pca.varplot = pbi_pca.varplot
 #' \usage{pbi_pca.toData(pca)}
 #' \arguments{
 #'   \item{pca}{
-#'     pca object of class prcomp.
+#'     pca object of class prcomp
 #'   }
 #' }
 #' \value{return data matrix with the original data.}
@@ -2610,6 +2776,16 @@ pbi$pca.varplot = pbi_pca.varplot
 #'   pca$rotation[,1]=0
 #'   head(pbi_pca.toData(pca))
 #' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_pca.biplot]{pbi_pca.biplot}}, 
+#' \code{\link[pbi:pbi_pca.corplot]{pbi_pca.corplot}}, 
+#' \code{\link[pbi:pbi_pca.pairs]{pbi_pca.pairs}},
+#' \code{\link[pbi:pbi_pca.plot]{pbi_pca.plot}},
+#' \code{\link[pbi:pbi_pca.variances]{pbi_pca.variances}},
+#' \code{\link[pbi:pbi_pca.varplot]{pbi_pca.varplot}}
+#' }
+
 
 pbi_pca.toData = function (pca) {
   if (!is.logical(pca$scale)) {
@@ -2625,7 +2801,7 @@ pbi$pca.toData = pbi_pca.toData
 #' \name{pbi_pcor}
 #' \alias{pbi$pcor}
 #' \alias{pbi_pcor}
-#' \title{Partial correlation between two variables.}
+#' \title{Partial correlation test for two variables}
 #' \description{
 #'     Calculate partial correlation coefficient of either parametric ("Pearson") 
 #'   or non-parametric ("Spearman") statistics corrected for one or more other variables.
@@ -2657,8 +2833,10 @@ pbi$pca.toData = pbi_pca.toData
 #'   # partial correlation between "hl" and "disp" given "deg" and "BC"
 #'   pbi_pcor(y.data$hl,y.data$disp,y.data[,c("deg","BC")])
 #' }
-#' \seealso{  See also [pbi_pcor.test](#pcor.test) }
-
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_pcor.test]{pbi_pcor.test}}
+#' }
 pbi_pcor = function (x,y,z,method='pearson') {
   r=pbi_pcor.test(x,y,z,method=method)$estimate
   return(r)
@@ -2669,7 +2847,7 @@ pbi$pcor = pbi_pcor
 #' \name{pbi_pcor.test}
 #' \alias{pbi$pcor.test}
 #' \alias{pbi_pcor.test}
-#' \title{Partial correlation test for two variables.}
+#' \title{Partial correlation test for two variables}
 #' \description{
 #'     Calculate partial correlation coefficient and  parametric 
 #'   ("Pearson") or non-parametric ("Spearman") 
@@ -2711,7 +2889,10 @@ pbi$pcor = pbi_pcor
 #'   # partial correlation between "hl" and "disp" given "deg" and "BC"
 #'   pbi_pcor.test(y.data$hl,y.data$disp,y.data[,c("deg","BC")])
 #' }
-#' \seealso{  See also [pcor](#pcor) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_pcor]{pbi_pcor}}
+#' }
 
 pbi_pcor.test = function (x,y,z,method='pearson') {
   if (is.data.frame(z)) {
@@ -2752,7 +2933,7 @@ pbi$pcor.test = pbi_pcor.test
 #' \name{pbi_prosite2regex}
 #' \alias{pbi$prosite2regex}
 #' \alias{pbi_prosite2regex}
-#' \title{Convert PROSITE patterns to regular expressions.}
+#' \title{Convert PROSITE patterns to regular expressions}
 #' \description{
 #'     This little function converts a PROSITE pattern to a normal regular 
 #'   expression. Please note, that for searching in FASTA files those 
@@ -2771,6 +2952,9 @@ pbi$pcor.test = pbi_pcor.test
 #' \examples{
 #'   pbi_prosite2regex("A-T-x(0,3)-{ALV}-A")
 #' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}
+#' }
 
 pbi_prosite2regex = function (pattern) {
   pattern=gsub("^<","^",pattern)
@@ -2787,7 +2971,7 @@ pbi$prosite2regex = pbi_prosite2regex
 #' \name{pbi_protscale}
 #' \alias{pbi$protscale}
 #' \alias{pbi_protscale}
-#' \title{Calculate protscale moving averages and optionally plot them.}
+#' \title{Calculate and plot protscale moving averages}
 #' \description{
 #'   This functions takes a given input sequence and calculates the hydophobicity averages
 #'   over a slising window of length 9 using the Kyte-Doolitle scale. The averaged scores
@@ -2814,6 +2998,10 @@ pbi$prosite2regex = pbi_prosite2regex
 #' FGSDYEDRYYRENMHRYPNQVYYRPMDEYSNQNNFVHDCVNITIKQHTVTTTTKGENFTETDVKMMERVV
 #' EQMCITQYERESQAYYQRGSSMVLFSSPPVILLISFLIFLIVG"
 #' pbi_protscale(fasta,plot=TRUE,col="light blue")
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_readFasta]{pbi_readFasta}}
 #' }
 
 pbi_protscale = function (sequence,plot=FALSE,col='orange') {
@@ -2860,7 +3048,7 @@ pbi$protscale = pbi_protscale
 #' \name{pbi_readFasta}
 #' \alias{pbi$readFasta}
 #' \alias{pbi_readFasta}
-#' \title{Read in a (small) fasta file into a list.}
+#' \title{Read in a (small) fasta file into a list}
 #' \description{
 #'     This function can be used to read in a small FASTA file into a listg where the keys are the ids and the values are
 #'   are the sequences without line breaks. This code is very slow for large files.
@@ -2884,7 +3072,10 @@ pbi$protscale = pbi_protscale
 #' M
 #' plot(hclust(as.dist(M)))
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_searchFasta](#searchFasta) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_searchFasta]{pbi_searchFasta}}
+#' }
 
 pbi_readFasta <- function (filename) {
   res=list()
@@ -2914,11 +3105,13 @@ pbi$readFasta = pbi_readFasta
 #' \name{pbi_readPepinfo}
 #' \alias{pbi$readPepinfo}
 #' \alias{pbi_readPepinfo}
-#' \title{Read data from the EMBOSS pepinfo tool.}
+#' \title{Read data from the EMBOSS pepinfo tool}
 #' \description{
 #'   This is a function to visualize the biophysical properties of a protein
 #'   using the output of the EMBOSS pepinfo tool which can be accessed online
-#'   at [https://www.ebi.ac.uk/Tools/seqstats/emboss_pepinfo/](https://www.ebi.ac.uk/Tools/seqstats/emboss_pepinfo/). After submitting your sequence you have to use the file at "Result Files->Tool Output" the file ending with ".output".
+#'   at \url{https://www.ebi.ac.uk/jdispatcher/seqstats/emboss_pepinfo}
+#' After submitting your sequence you have to use the file at 
+#' "Result Files->Tool Output" the file ending with ".output".
 #' }
 #' \usage{pbi_readPepinfo(file,region=NULL)}
 #' \arguments{
@@ -2937,6 +3130,10 @@ pbi$readFasta = pbi_readFasta
 #'   res=pbi_readPepinfo(pepfile,region="Doolittle")
 #'   plot(res$Result ~ res$Position,type="h",col="orange")
 #' }
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_readFasta]{pbi_readFasta}}
 #' }
 
 pbi_readPepinfo = function (file,region=NULL) {
@@ -2981,24 +3178,27 @@ pbi$readPepinfo = pbi_readPepinfo
 #' \name{pbi_report.chisq.test}
 #' \alias{pbi$report.chisq.test}
 #' \alias{pbi_report.chisq.test}
-#' \title{Return a formatted text string for reporting a chisq.test.}
+#' \title{Return a formatted text string for reporting a chisq.test}
 #' \description{
 #'     Return a formatted text string for reporting a chisq.test.
 #' }
 #' \usage{pbi_report.chisq.test(tab)}
 #' \arguments{
 #'   \item{tab}{
-#'     a contigency table.
+#'     a contigency table
 #'   }
 #' }
-#' \value{return formatted text string for reporting a chisq.test in a LaTeX/Sweave document.}
+#' \value{return formatted text string for reporting a chisq.test in a LaTeX/Sweave document}
 #' \examples{
 #'   azt=as.table(matrix(c(76,399,129,332), byrow=TRUE,ncol=2))
 #'   rownames(azt)=c("AZT","Placebo")
 #'   colnames(azt)=c("DiseaseProgress", "NoDiseaseProgress")
 #'   pbi_report.chisq.test(azt)
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_report.pval](#report.pval) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_report.conf.int]{pbi_report.conf.int}}, \code{\link[pbi:pbi_report.pval]{pbi_report.pval}}
+#' }
 
 pbi_report.chisq.test <- function (tab) {
   ct=prop.test(tab)
@@ -3013,7 +3213,7 @@ pbi$report.chisq.test = pbi_report.chisq.test
 #' \name{pbi_report.conf.int}
 #' \alias{pbi$report.conf.int}
 #' \alias{pbi_report.conf.int}
-#' \title{Return a formatted text string for reporting a confidence interval. }
+#' \title{Formatted text strings for reporting a confidence interval}
 #' \description{
 #'     Return a formatted text string for reporting a confidence interval. 
 #' }
@@ -3033,7 +3233,10 @@ pbi$report.chisq.test = pbi_report.chisq.test
 #'   colnames(azt)=c("DiseaseProgress", "NoDiseaseProgress")
 #'   pbi_report.conf.int(prop.test(azt)$conf.int)
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_report.pval](#report.pval) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_report.chisq.test]{pbi_report.chisq.test}}, \code{\link[pbi:pbi_report.pval]{pbi_report.pval}}
+#' }
 
 pbi_report.conf.int <- function (ci,round=2) {
   return(paste('[',round(ci[1],round),',',
@@ -3045,10 +3248,9 @@ pbi$report.conf.int = pbi_report.conf.int
 #' \name{pbi_report.pval}
 #' \alias{pbi$report.pval}
 #' \alias{pbi_report.pval}
-#' \title{Return a p-value of reporting, either giving the three alpha thresholds, 
-#'   <0.05, <0.01, or <0.001 or using the star syntax. }
+#' \title{Return a p-value for reporting}
 #' \description{
-#'     Return a p-value of reporting, either giving the three alpha thresholds, 
+#'     Return a p-value for reporting, either giving the three alpha thresholds, 
 #'   <0.05, <0.01, or <0.001 or using the star syntax. 
 #' }
 #' \usage{pbi_report.pval(p.val,star=FALSE)}
@@ -3069,7 +3271,10 @@ pbi$report.conf.int = pbi_report.conf.int
 #'   report.pval(0.12,star=TRUE)
 #'   report.pval(c(0.001,0.01,0.3,0.02))
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_report.conf.int](#report.conf.int) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_report.chisq.test]{pbi_report.chisq.test}}, \code{\link[pbi:pbi_report.conf.int]{pbi_report.conf.int}}
+#' }
 
 pbi_report.pval <- function (p.val,star=FALSE) {
   if (length(p.val) > 1) {
@@ -3099,9 +3304,9 @@ pbi$report.pval = pbi_report.pval
 #' \name{pbi_sem}
 #' \alias{pbi$sem}
 #' \alias{pbi_sem}
-#' \title{Calculate the standard error of the mean for a given numerical vector.}
+#' \title{standard error of the mean}
 #' \description{
-#'     Calculate the standard error of the mean for a given numerical vector.
+#'     Calculates the standard error of the mean for a given numerical vector.
 #' }
 #' \usage{pbi_sem(x,na.rm=FALSE)}
 #' \arguments{
@@ -3117,7 +3322,8 @@ pbi$report.pval = pbi_report.pval
 #'   pbi_sem(rnorm(50,mean=10,sd=3))
 #'   pbi_sem(rnorm(1000,mean=10,sd=3))
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_cv](#cv) }
+#' \seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+#' \code{\link[pbi:pbi_cv]{pbi_cv}} }
 
 pbi_sem <- function(x,na.rm=FALSE) {
   sd(x,na.rm=na.rm)/sqrt(length(x[!is.na(x)])) 
@@ -3128,7 +3334,7 @@ pbi$sem = pbi_sem
 #' \name{pbi_searchFasta}
 #' \alias{pbi$searchFasta}
 #' \alias{pbi_searchFasta}
-#' \title{Search a FASTA file with a regular expression.}
+#' \title{Search a FASTA file with a regular expression}
 #' \description{
 #'     This function searches FASTA files by removing line breaks within the
 #'   sequence belonging to the same ID.
@@ -3139,16 +3345,19 @@ pbi$sem = pbi_sem
 #'     a sequence file in FASTA format
 #'   }
 #'   \item{pattern}{
-#'     a standard regular expression which will be applied on the sequence for the ID.
+#'     a standard regular expression which will be applied on the sequence for the ID
 #'   }
 #' }
-#' \value{return the matching ID's.}
+#' \value{return the matching ID's}
 #' \examples{
 #'   # the pattern splits over two lines for the first sequence
 #'   pbi_searchFasta(filename=system.file("files/human-tRNAs.fasta",package="pbi"),
 #'      pattern="GACGC{5}AT{2}CTCT")
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_tkregex](#tkregex), [pbi_prosite2regex](#prosite2regex) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_readFasta]{pbi_readFasta}}
+#' }
 
 pbi_searchFasta <- function(filename,pattern) {
   if (!file.exists(filename)) {
@@ -3182,7 +3391,7 @@ pbi$searchFasta = pbi_searchFasta
 #' \name{pbi_text2fasta}
 #' \alias{pbi$text2fasta}
 #' \alias{pbi_text2fasta}
-#' \title{Convert any Text file to a FASTA file using only Aminoacid letters.}
+#' \title{Convert any Text file to a FASTA file using only Aminoacid letters}
 #' \description{
 #'     This function loops over the given directory and converts text files to
 #'   a FASTA file format. Only uppercase letters are used for the output file.
@@ -3199,12 +3408,15 @@ pbi$searchFasta = pbi_searchFasta
 #'     the output filename, default: 'stdout'
 #'   }
 #' }
-#' \value{return the number of sequences.}
+#' \value{return the number of sequences}
 #' \examples{
 #'   pbi_text2fasta(dir=".",pattern='*.R$',outfile="test.fasta")
 #'   pbi_file.head("test.fasta",n=3)
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_searchFasta](#searchFasta) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_readFasta]{pbi_readFasta}}
+#' }
 
 pbi_text2fasta <- function (dir,pattern="*",outfile="stdout") {
   if (outfile == "stdout") {
@@ -3237,7 +3449,7 @@ pbi$text2fasta = pbi_text2fasta
 #' \name{pbi_tkregex}
 #' \alias{pbi$tkregex}
 #' \alias{pbi_tkregex}
-#' \title{Graphical user interface for testing regular expressions.}
+#' \title{Graphical user interface for testing regular expressions}
 #' \description{
 #'   This function provides a graphical user interface to execute regular
 #'   expressions either as PROSITE patterns or a standard regular expressions
@@ -3254,7 +3466,10 @@ pbi$text2fasta = pbi_text2fasta
 #'     pbi_tkregex()
 #'   }
 #' }
-#' \seealso{  See also [pbi](#home), [pbi_prosite2regex](#prosite2regex) }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}
+#' }
+
 
 pbi_tkregex = function () {
     ### I could not handle package variables and global variables
@@ -3267,7 +3482,7 @@ pbi$tkregex = pbi_tkregex
 #' \name{pbi_wordFreq}
 #' \alias{pbi$wordFreq}
 #' \alias{pbi_wordFreq}
-#' \title{Count the number of words with a given length in a sequence.}
+#' \title{Number of words with a given length in a sequence}
 #' \description{
 #'   The function creates a sliding window of length `wlength` over the given 
 #'   text or sequence string creating words of length `wlength`. 
@@ -3283,7 +3498,7 @@ pbi$tkregex = pbi_tkregex
 #'     word size, default: 2
 #'   }
 #' }
-#' \value{return list object with words as keys and counts as values or data frame in case input is a vector.}
+#' \value{return list object with words as keys and counts as values or data frame in case input is a vector}
 #' \examples{
 #'   seq="AAABBBCCCDEFAABBCCDD"
 #'   unlist(pbi_wordFreq(seq))
@@ -3300,6 +3515,9 @@ pbi$tkregex = pbi_tkregex
 #'   min=pbi_wordFreq(minions[,1],wlength=2)
 #'   rownames(min)=rownames(minions)
 #'   min
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}
 #' }
 
 pbi_wordFreq = function (seq,wlength=2) {
@@ -3345,7 +3563,7 @@ pbi$wordFreq = pbi_wordFreq
 #' \name{pbi_wininstall}
 #' \alias{pbi$wininstall}
 #' \alias{pbi_wininstall}
-#' \title{Make an executable Batch script on Windows for R applications within the users PATH.}
+#' \title{Create an executable Batch script on Windows for R applications within the users PATH}
 #' \description{
 #'   The function two files in the users PATH for executables on Windows, a BATCH file and a script file
 #'   both in the same folder and with the same file prefix. This allows the user to directly execute a Rscript 
@@ -3361,6 +3579,9 @@ pbi$wordFreq = pbi_wordFreq
 #'   \dontrun{
 #'   pbi_wininstall("hw.R")
 #' }
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}
 #' }
 
 pbi_wininstall = function (filename="") {
@@ -3424,14 +3645,15 @@ pbi$wininstall = pbi_wininstall
 #' \name{pbi_xyplot}
 #' \alias{pbi$xyplot}
 #' \alias{pbi_xyplot}
-#' \title{Improved xyplot which as well displays a grid and the correlation coefficient.}
+#' \title{Improved XY-plot which as well displays a grid and the correlation coefficient}
 #' \description{
 #'   This is just a simple illustrative function to demonstrate how a standard
 #'   R function can be modified and extended using different type of arguments
 #'   overwriting default settings and using the ellipsis and delegating 
 #'   remaining arguments to the default function
 #' }
-#' \usage{pbi_xyplot(x,y,col="blue",pch=19,grid=TRUE,xlab=NULL,ylab=NULL,ellipse=FALSE,ell.fill=FALSE,show.r=TRUE,...)}
+#' \usage{pbi_xyplot(x, y, col="blue", pch=19, grid=TRUE, xlab=NULL, ylab=NULL,
+#'                   ellipse=FALSE,ell.fill=FALSE,show.r=TRUE,...)}
 #' \arguments{
 #'   \item{x}{
 #'     vector with  numerical values, or a matrix or data frame
@@ -3463,7 +3685,7 @@ pbi$wininstall = pbi_wininstall
 #'   \item{show.r}{
 #'     should the Pearson correlation been shown on top, default: TRUE
 #'   }
-#'   \item{...}{
+#'   \item{\ldots}{
 #'     remaining arguments delegated to the standard plot function
 #'   }
 #' }
@@ -3483,6 +3705,10 @@ pbi$wininstall = pbi_wininstall
 #' pbi_xyplot(iris$Sepal.Width,iris$Sepal.Length,
 #'     xlab="Sepal.Width",ylab="Sepal.Height",
 #'     col=as.numeric(iris$Species)+1,ellipse=TRUE,ell.fill=TRUE)
+#' }
+#' \seealso{ 
+#' \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},
+#' \code{\link[pbi:pbi_lmplot]{pbi_lmplot}}
 #' }
 
 pbi_xyplot <- function(x,y,col="blue",pch=19,grid=TRUE,
