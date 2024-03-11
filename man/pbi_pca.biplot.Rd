@@ -1,15 +1,17 @@
 \name{pbi_pca.biplot} 
 \alias{pbi$pca.biplot} 
 \alias{pbi_pca.biplot} 
-\title{Improved biplot for pca objects.} 
+\title{Improved biplot for prcomp objects} 
 \description{ 
-  The function _pca.biplot_ provides an improved biblot for 
+  The function \code{pca.biplot} provides an improved biblot for 
   visualizing the pairwise scores of individual principal components of  
   an object created using the function _prcomp_. In contrast to the default  
   biplot function  this plot visualizes the data as points and not row numbers, 
   it allows to display groups using color codes and distribution ellipses. 
 } 
-\usage{pbi_pca.biplot(pca,pcs=c("PC1","PC2"),pch=19,col='black',text=NULL,arrows=TRUE,arrow.fac=1,arrow.n=-1,ellipse=FALSE,ell.fill=FALSE,xlab=NULL,ylab=NULL,grid=TRUE,scale=NULL,...)} 
+\usage{pbi_pca.biplot(pca,pcs=c("PC1","PC2"), pch=19, col='black', text=NULL, 
+    arrows=TRUE, arrow.fac=1, arrow.n=-1, ellipse=FALSE, ell.fill=FALSE,  
+    xlab=NULL, ylab=NULL, grid=TRUE, scale=NULL, ...)} 
 \arguments{ 
   \item{pca}{ 
     pca object of class _prcomp_, created using the function _prcomp_. 
@@ -77,4 +79,13 @@
         col=col,ellipse=TRUE,text=substr(rownames(swiss),1,3)) 
   pbi_pca.biplot(pcs,arrow.fac=2,grid=TRUE,  
        col=col,text=substr(rownames(swiss),1,3),scale=asinh,arrows=FALSE) 
+} 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+\code{\link[pbi:pbi_pca.corplot]{pbi_pca.corplot}},  
+\code{\link[pbi:pbi_pca.pairs]{pbi_pca.pairs}},  
+\code{\link[pbi:pbi_pca.plot]{pbi_pca.plot}}, 
+\code{\link[pbi:pbi_pca.toData]{pbi_pca.toData}}, 
+\code{\link[pbi:pbi_pca.variances]{pbi_pca.variances}}, 
+\code{\link[pbi:pbi_pca.varplot]{pbi_pca.varplot}} 
 } 

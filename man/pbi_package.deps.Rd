@@ -1,7 +1,7 @@
 \name{pbi_package.deps} 
 \alias{pbi$package.deps} 
 \alias{pbi_package.deps} 
-\title{ Return the packages which are required by the given package name. } 
+\title{Package(s) which are required by the given package name} 
 \description{The function helps in identifying the nested package dependencies for a given package.} 
 \usage{ pbi_package.deps(pkgName,mode='all') } 
 \arguments{ 
@@ -21,4 +21,7 @@
     pbi_package.deps('igraph',mode='nonbase') 
     pbi_package.deps('igraph',mode='all') 
  } 
+} 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}} 
 } 

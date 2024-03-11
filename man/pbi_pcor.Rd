@@ -1,7 +1,7 @@
 \name{pbi_pcor} 
 \alias{pbi$pcor} 
 \alias{pbi_pcor} 
-\title{Partial correlation between two variables.} 
+\title{Partial correlation test for two variables} 
 \description{ 
     Calculate partial correlation coefficient of either parametric ("Pearson")  
   or non-parametric ("Spearman") statistics corrected for one or more other variables. 
@@ -33,4 +33,7 @@
   # partial correlation between "hl" and "disp" given "deg" and "BC" 
   pbi_pcor(y.data$hl,y.data$disp,y.data[,c("deg","BC")]) 
 } 
-\seealso{  See also [pbi_pcor.test](#pcor.test) } 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+\code{\link[pbi:pbi_pcor.test]{pbi_pcor.test}} 
+} 

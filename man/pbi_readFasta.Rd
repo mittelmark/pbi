@@ -1,7 +1,7 @@
 \name{pbi_readFasta} 
 \alias{pbi$readFasta} 
 \alias{pbi_readFasta} 
-\title{Read in a (small) fasta file into a list.} 
+\title{Read in a (small) fasta file into a list} 
 \description{ 
     This function can be used to read in a small FASTA file into a listg where the keys are the ids and the values are 
   are the sequences without line breaks. This code is very slow for large files. 
@@ -25,4 +25,7 @@ M=adist(unlist(seq))
 M 
 plot(hclust(as.dist(M))) 
 } 
-\seealso{  See also [pbi](#home), [pbi_searchFasta](#searchFasta) } 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+\code{\link[pbi:pbi_searchFasta]{pbi_searchFasta}} 
+} 

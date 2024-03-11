@@ -1,14 +1,14 @@
 \name{pbi_lmplot} 
 \alias{pbi$lmplot} 
 \alias{pbi_lmplot} 
-\title{ Plot a xy-plot with linear model fits and the confidence lines. } 
+\title{ XY-plot with linear model fits and confidence lines} 
 \description{ 
     The plot visualizes the linear fit description between numerical variables, 
   together with the confidence limits for the predictions as well as for 
-  the linear model. The code is based on a tutorial by Conrad Halling (2006).  
-  [https://web.archive.org/web/20180415155316/http://sphaerula.com/legacy/R/linearRegression.html](https://web.archive.org/web/20180415155316/http://sphaerula.com/legacy/R/linearRegression.html) 
+  the linear model. The code is based on a tutorial by Conrad Halling (2006), see  
+  \href{https://web.archive.org/web/20180415155316/http://sphaerula.com/legacy/R/linearRegression.html}{http://sphaerula.com/legacy/R/linearRegression.html} 
 } 
-\usage{ pbi_lmplot(x,y,col="blue",pch=19,col.lm="red",grid=TRUE,...) } 
+\usage{ pbi_lmplot(x, y, col="blue", pch=19, col.lm="red", grid=TRUE, ...) } 
 \arguments{ 
   \item{ x }{ 
     vector with numerical variables 
@@ -44,7 +44,10 @@ pbi_lmplot(x=c20.22,y=ins.sens,
    ylab='Insuline Sensitivity Index (mg/m^2/min)') 
  
 legend('bottomright',c('best fit','fit 95\% CI', 
-'prediction 95\% CI'),lty=c(1,2,2), 
-col=c('red','red','blue')) 
+       'prediction 95\% CI'),lty=c(1,2,2), 
+       col=c('red','red','blue')) 
 } 
-\seealso{  See also: [pbi](#pbi), [pbi_modelQuality](#modelQuality) } 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+\code{\link[pbi:pbi_modelQuality]{pbi_modelQuality}} 
+} 

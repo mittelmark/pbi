@@ -1,10 +1,9 @@
 \name{pbi_report.pval} 
 \alias{pbi$report.pval} 
 \alias{pbi_report.pval} 
-\title{Return a p-value of reporting, either giving the three alpha thresholds,  
-  <0.05, <0.01, or <0.001 or using the star syntax. } 
+\title{Return a p-value for reporting} 
 \description{ 
-    Return a p-value of reporting, either giving the three alpha thresholds,  
+    Return a p-value for reporting, either giving the three alpha thresholds,  
   <0.05, <0.01, or <0.001 or using the star syntax.  
 } 
 \usage{pbi_report.pval(p.val,star=FALSE)} 
@@ -25,4 +24,7 @@
   report.pval(0.12,star=TRUE) 
   report.pval(c(0.001,0.01,0.3,0.02)) 
 } 
-\seealso{  See also [pbi](#home), [pbi_report.conf.int](#report.conf.int) } 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+\code{\link[pbi:pbi_report.chisq.test]{pbi_report.chisq.test}}, \code{\link[pbi:pbi_report.conf.int]{pbi_report.conf.int}} 
+} 

@@ -1,18 +1,18 @@
 \name{pbi_cohensD} 
 \alias{pbi$cohensD} 
 \alias{pbi_cohensD} 
-\title{ Effect size for the difference between two means.} 
+\title{Effect size for the difference between two means} 
 \description{ 
-  The function *pbi_cohensD* calculates the effect size for the difference between two means. 
+  The function \code{pbi_cohensD} calculates the effect size for the difference between two means. 
   Due to Cohen's rule of thumb values of 0.2 to 0.5 are considered to stand  
   for small effects, values from 0.5 to 0.8 represent medium effects and values above 0.8 represent large effects. 
 } 
-\usage{pbi_cohensD(num,cat,paired=FALSE)} 
+\usage{pbi_cohensD(x,y,paired=FALSE)} 
 \arguments{ 
-  \item{num}{ 
+  \item{x}{ 
     vector with numerical values 
   } 
-  \item{cat}{ 
+  \item{y}{ 
     vector with two grouping variables, having the same length as num 
   } 
   \item{paired}{ 
@@ -34,4 +34,5 @@
   # value is as well large 
   cor(c(x1,x2),as.numeric(as.factor(c(g1,g2)))) 
 } 
-\seealso{  See also [pbi](#home), [pbi_cohensW](#cohensW) } 
+\seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, \code{\link[pbi:pbi_cohensW]{pbi_cohensW}}  
+\code{\link[pbi:pbi_etaSquared]{pbi_etaSquared}}, \code{\link[pbi:pbi_epsilonSquared]{pbi_epsilonSquared}} } 

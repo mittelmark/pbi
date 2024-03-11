@@ -1,11 +1,12 @@
 \name{pbi_dcorrplot} 
 \alias{pbi$dcorrplot} 
 \alias{pbi_dcorrplot} 
-\title{Visualize a correlation matrix.} 
+\title{Visualize a correlation matrix} 
 \description{ 
     Visualize a correlation matrix. 
 } 
-\usage{pbi_dcorrplot(mt,text.lower=TRUE, text.upper=FALSE,pch=19,p.mat=NULL,alpha=0.05,cex.sym=5,cex.r=1,cex.lab=1.4,...)} 
+\usage{pbi_dcorrplot(mt, text.lower=TRUE, text.upper=FALSE, pch=19, 
+  p.mat=NULL, alpha=0.05, cex.sym=5, cex.r=1, cex.lab=1.4,...)} 
 \arguments{ 
   \item{mt}{ 
     matrix with pairwise correlations 
@@ -23,13 +24,13 @@
     matrix with p-values to strike out insignificant p-values, default: NULL (not used) 
   } 
   \item{alpha}{ 
-    significance threshold for _p.mat_, default: 0.05 
+    significance threshold for \emph{p.mat}, default: 0.05 
   } 
   \item{cex.sym}{ 
     character expansion for the correlation symbols, default: 5 
   } 
   \item{cex.r}{ 
-    character expansion for the r-values if _text.lower_ or _text.upper_ are set to TRUE, default: 1 
+    character expansion for the r-values if \emph{text.lower} or \emph{text.upper} are set to TRUE, default: 1 
   } 
   \item{cex.lab}{ 
     character expansion for the variable text labels, default: 1.4 
@@ -46,4 +47,6 @@
   pbi_dcorrplot(cr$estimate,cex.sym=8,text.lower=TRUE, 
      cex.r=1.5,p.mat=cr$p.value) 
 } 
-\seealso{  See also [pbi](#home), [pbi_dcorr](#dcorr) } 
+\seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},  
+\code{\link[pbi:pbi_dcorr]{pbi_dcorr}} } 
+ 

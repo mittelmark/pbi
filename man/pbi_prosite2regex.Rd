@@ -1,7 +1,7 @@
 \name{pbi_prosite2regex} 
 \alias{pbi$prosite2regex} 
 \alias{pbi_prosite2regex} 
-\title{Convert PROSITE patterns to regular expressions.} 
+\title{Convert PROSITE patterns to regular expressions} 
 \description{ 
     This little function converts a PROSITE pattern to a normal regular  
   expression. Please note, that for searching in FASTA files those  
@@ -19,4 +19,7 @@
 \value{return a "normal" regular expression.} 
 \examples{ 
   pbi_prosite2regex("A-T-x(0,3)-{ALV}-A") 
+} 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}} 
 } 

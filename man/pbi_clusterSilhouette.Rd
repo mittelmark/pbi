@@ -1,7 +1,7 @@
 \name{pbi_clusterSilhouette} 
 \alias{pbi$clusterSilhouette} 
 \alias{pbi_clusterSilhouette} 
-\title{Determine the cluster silhouette for given cluster ids and distance matrix.} 
+\title{Determine Cluster Silhouette Index} 
 \description{ 
     This function can be used to determine the strength of a given clustering. 
     A silhouette index of larger than 0.7 indicates a strong,  

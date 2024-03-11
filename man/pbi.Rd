@@ -1,7 +1,7 @@
 \name{pbi} 
 \alias{pbi} 
 \alias{pbi-class} 
-\title{ Environment object with functions for the course Practical Bioinformatics } 
+\title{Environment Object with Functions for the Course Practical Bioinformatics} 
 \description{ 
 The functions within the pbi environment are utility functions used in the  
 course Practical Bioinformatics at the University of Potsdam. 
@@ -24,6 +24,7 @@ course Practical Bioinformatics at the University of Potsdam.
 \item \code{\link[pbi:pbi_dpairs.legend]{pbi$dpairs.legend}} - adding legends to pairs plots 
 \item \code{\link[pbi:pbi_epsilonSquared]{pbi$epsilonSquared}} - effect size for comparing three or more means of non-normal data 
 \item \code{\link[pbi:pbi_etaSquared]{pbi$etaSquared}} - effect size for comparing three or more means of normal data 
+\item \code{\link[pbi:pbi_file.cat]{pbi$file.cat}} - show a text file within the R-console 
 \item \code{\link[pbi:pbi_file.head]{pbi$file.head}} - show the first lines of a text file 
 \item \code{\link[pbi:pbi_grect]{pbi$grect}} - add colored background and grid lines to an existing plot 
 \item \code{\link[pbi:pbi_impute]{pbi$impute}} - missing value imputation 

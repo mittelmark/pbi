@@ -1,7 +1,7 @@
 \name{pbi_tkregex} 
 \alias{pbi$tkregex} 
 \alias{pbi_tkregex} 
-\title{Graphical user interface for testing regular expressions.} 
+\title{Graphical user interface for testing regular expressions} 
 \description{ 
   This function provides a graphical user interface to execute regular 
   expressions either as PROSITE patterns or a standard regular expressions 
@@ -18,4 +18,6 @@
     pbi_tkregex() 
   } 
 } 
-\seealso{  See also [pbi](#home), [pbi_prosite2regex](#prosite2regex) } 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}} 
+} 

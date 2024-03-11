@@ -1,7 +1,7 @@
 \name{pbi_wininstall} 
 \alias{pbi$wininstall} 
 \alias{pbi_wininstall} 
-\title{Make an executable Batch script on Windows for R applications within the users PATH.} 
+\title{Create an executable Batch script on Windows for R applications within the users PATH} 
 \description{ 
   The function two files in the users PATH for executables on Windows, a BATCH file and a script file 
   both in the same folder and with the same file prefix. This allows the user to directly execute a Rscript  
@@ -17,4 +17,7 @@
   \dontrun{ 
   pbi_wininstall("hw.R") 
 } 
+} 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}} 
 } 

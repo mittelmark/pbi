@@ -1,7 +1,7 @@
 \name{pbi_dassoc} 
 \alias{pbi$dassoc} 
 \alias{pbi_dassoc} 
-\title{Create assocplots with residual coloring.} 
+\title{Assocplots with residual coloring} 
 \description{ 
    This function updates the standard assocplot function from the graphics package  
    with the ability to display residual colors. In blue and red are shown groups with  
@@ -20,3 +20,5 @@
   x = margin.table(HairEyeColor, c(1, 2)) 
   pbi_dassoc(x) 
 } 
+\seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}} 
+ 

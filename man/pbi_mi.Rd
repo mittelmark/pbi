@@ -1,7 +1,7 @@
 \name{pbi_mi} 
 \alias{pbi$mi} 
 \alias{pbi_mi} 
-\title{ Return the mutual information for two vectors or a binned table. } 
+\title{Mutual information for two vectors or a binned table} 
 \description{ 
     Returns: mutual information value, or matrix of all pairwise values in case input  is matrix or data frame 
 } 
@@ -34,4 +34,8 @@ round(pbi_mi(iris[,1:4]),2)
 mii=pbi_mi(iris[,1:4]) 
 round(mii/diag(mii),2) 
 round(cor(iris[,1:4]),2) 
+} 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+\code{\link[pbi:pbi_dcorr]{pbi_dcorr}} 
 } 

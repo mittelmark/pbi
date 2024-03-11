@@ -1,7 +1,7 @@
 \name{pbi_protscale} 
 \alias{pbi$protscale} 
 \alias{pbi_protscale} 
-\title{Calculate protscale moving averages and optionally plot them.} 
+\title{Calculate and plot protscale moving averages} 
 \description{ 
   This functions takes a given input sequence and calculates the hydophobicity averages 
   over a slising window of length 9 using the Kyte-Doolitle scale. The averaged scores 
@@ -28,4 +28,8 @@ GGWGQPHGGGWGQPHGGGWGQGGGTHSQWNKPSKPKTNMKHMAGAAAAGAVVGGLGGYMLGSAMSRPIIH
 FGSDYEDRYYRENMHRYPNQVYYRPMDEYSNQNNFVHDCVNITIKQHTVTTTTKGENFTETDVKMMERVV 
 EQMCITQYERESQAYYQRGSSMVLFSSPPVILLISFLIFLIVG" 
 pbi_protscale(fasta,plot=TRUE,col="light blue") 
+} 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+\code{\link[pbi:pbi_readFasta]{pbi_readFasta}} 
 } 

@@ -1,11 +1,12 @@
 \name{pbi_dist} 
 \alias{pbi$dist} 
 \alias{pbi_dist} 
-\title{Distance function which as well supports binary and correlation distances in addition to standard distances.} 
+\title{Distance function which as well supports binary and correlation distances} 
 \description{ 
   This function is an extension to stats::dist function as  it supports as well correlation distance and  
   binary distance measures such as Jaccard coefficient and Matching coefficient.  
-  The correlation distance is implemented as `D(i,j) = 1-((r(i,j)+1)/2)`  
+  The correlation distance is implemented as  
+  \deqn{D_{i,j}  = 1 - \frac{r_{i,j} + 1}{2} } 
   so negative correlations have low similarities. 
 } 
 \usage{pbi_dist(x,method="euclidean",...)} 
@@ -16,11 +17,11 @@
   } 
   \item{method}{ 
     the distance measure to be used, one of the measures  
-    for `stats::dist` such as "euclidean" or "correlation",  
+    for \emph{stats::dist} such as "euclidean" or "correlation",  
     alias for  "pearson" or "spearman","kendall",  
     for binary data "jc" (Jaccard) and "mc" (Matching coeffient) are supported. 
   } 
-  \item{...}{ 
+  \item{\ldots}{ 
     remaining arguments are forwarded to stats::dist function in case the method is  
     handled by this default method.  
   } 
@@ -41,3 +42,5 @@
   d.can=d.can/max(d.can) 
   round(d.can,2) 
 } 
+\seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}} 
+ 

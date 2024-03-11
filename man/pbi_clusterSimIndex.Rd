@@ -1,7 +1,7 @@
 \name{pbi_clusterSimIndex} 
 \alias{pbi$clusterSimIndex} 
 \alias{pbi_clusterSimIndex} 
-\title{Compute similarity indices of two clusterings.} 
+\title{Compute Similarity Indices of Two Clusterings} 
 \description{ 
   This function computes the similarity indices between two clusterings,  
   such as the Rand, Jaccard and Cohen's Kappa index. 

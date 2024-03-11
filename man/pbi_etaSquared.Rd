@@ -1,9 +1,9 @@
 \name{pbi_etaSquared} 
 \alias{pbi$etaSquared} 
 \alias{pbi_etaSquared} 
-\title{Calculate the effect size eta-squared for an Anova or a linear model. } 
+\title{Effect size eta-squared for an Anova or a linear model object} 
 \description{ 
-    Cohen's rule of thumb for interpretation is: 0.01-0.09 small, 0.09-0.25 medium and above 0.25 large effect. You can convert eta-squared to a Pearson r by using the sqrt of eta-square. 
+    Cohen's rule of thumb for interpretation is: 0.01-0.09 small, 0.09-0.25 medium and above 0.25 large effect. You can convert eta-squared to a Pearson \emph{r} by using the square root of eta-squared. 
 } 
 \usage{pbi_etaSquared(x,y=NULL)} 
 \arguments{ 
@@ -23,4 +23,6 @@
   etaSquared(aov(iris$Sepal.Length ~ iris$Species)) 
   etaSquared(aov(Sepal.Length ~ Species+Sepal.Width,data=iris)) 
 } 
-\seealso{  See also [pbi](#home), [pbi_cohensD](#cohensD) } 
+\seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},  
+\code{\link[pbi:pbi_cohensD]{pbi_cohensD}}, \code{\link[pbi:pbi_epsilonSquared]{pbi_epsilonSquared}}} 
+ 

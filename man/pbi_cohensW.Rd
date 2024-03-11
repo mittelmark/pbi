@@ -1,9 +1,9 @@
 \name{pbi_cohensW} 
 \alias{pbi$cohensW} 
 \alias{pbi_cohensW} 
-\title{Effect size for 2x2 and larger contingency tables as well as for single variables.} 
+\title{Effect size for contingency tables} 
 \description{ 
-  The function *pbi_cohensW* calculates the effect size for contingency tables.  
+  The function \code{pbi_cohensW} calculates the effect size for contingency tables.  
   Due to Cohen's rule of thumb values of 0.1 to 0.3 are considered to stand  
   for small effects, values from 0.3 to 0.5 represent medium effects and values  
   above 0.5 represent large effects. 
@@ -37,4 +37,5 @@ pbi_cohensW(c(25,15),p=c(0.51,0.49))
 pbi_cohensW(c(40,0),p=0.5) 
 pbi_cohensW(c(40,0),p=c(0.51,0.49)) # max value here around 2*0.49 
 } 
-\seealso{  [pbi](#home), [pbi_cohensH](#cohensH) } 
+\seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},  
+\code{\link[pbi:pbi_cohensH]{pbi_cohensH}} } 

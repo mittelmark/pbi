@@ -1,10 +1,10 @@
 \name{pbi_cv} 
 \alias{pbi$cv} 
 \alias{pbi_cv} 
-\title{Calculate the coefficient of variation.} 
+\title{Coefficient of variation} 
 \description{ 
-  The function *pbi_cv* calculates the coefficient of variation, which is 
-  a unitless measure of data scatter. It is calculated as: _(100*sd(x))/mean(x)_. 
+  The function \code{pbi_cv} calculates the coefficient of variation, which is 
+  an unit-less measure of data scatter. It is calculated as: \emph{(100*sd(x))/mean(x)}. 
   All data values has to be non-negative. 
 } 
 \usage{pbi_cv(x,na.rm=FALSE)} 
@@ -23,3 +23,5 @@
   pbi_cv(c(1,2,3,4,NA)) 
   pbi_cv(c(1,2,3,4,NA),na.rm=TRUE) 
 } 
+\seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},  
+\code{\link[pbi:pbi_sem]{pbi_sem}} } 

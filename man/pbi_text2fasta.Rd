@@ -1,7 +1,7 @@
 \name{pbi_text2fasta} 
 \alias{pbi$text2fasta} 
 \alias{pbi_text2fasta} 
-\title{Convert any Text file to a FASTA file using only Aminoacid letters.} 
+\title{Convert any Text file to a FASTA file using only Aminoacid letters} 
 \description{ 
     This function loops over the given directory and converts text files to 
   a FASTA file format. Only uppercase letters are used for the output file. 
@@ -18,9 +18,12 @@
     the output filename, default: 'stdout' 
   } 
 } 
-\value{return the number of sequences.} 
+\value{return the number of sequences} 
 \examples{ 
   pbi_text2fasta(dir=".",pattern='*.R$',outfile="test.fasta") 
   pbi_file.head("test.fasta",n=3) 
 } 
-\seealso{  See also [pbi](#home), [pbi_searchFasta](#searchFasta) } 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+\code{\link[pbi:pbi_readFasta]{pbi_readFasta}} 
+} 

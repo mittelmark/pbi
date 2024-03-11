@@ -1,16 +1,17 @@
 \name{pbi_dpairs} 
 \alias{pbi$dpairs} 
 \alias{pbi_dpairs} 
-\title{Improved pairs plot considering the data types.} 
+\title{Improved pairs plot considering the data types} 
 \description{ 
-  The function _dpairs_ provides an improved pairs plot which accounts 
+  The function \code{pbi_dpairs} provides an improved pairs plot which accounts 
   for the data type of the actual variables. It will plot in the  
   lower diagonal xy-plots, box-plots or assoc-plots depending on the  
   two data types. In the upper diagonal effect sizes and stars for the p-values 
   for the tests (anova, t.test, chisq.test or cor.test) will be shown. In the diagonal  
   the data distribution will be outlined. This plot is usually an useful visualization for 3-8 variables. 
 } 
-\usage{pbi_dpairs(data,col.box='grey80',col.xy="grey60",cex.diag=2.5,order=TRUE,pch=19)} 
+\usage{pbi_dpairs(data, col.box='grey80', col.xy="grey60", cex.diag=2.5, order=TRUE,  
+    pch=19)} 
 \arguments{ 
   \item{data}{ 
     data frame with columns of class factor, numeric or integer. 
@@ -59,3 +60,6 @@
           col=pbi_pastel(3)[as.numeric(as.factor(levels(peng$species)))]) 
   } 
 } 
+\seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},  
+\code{\link[pbi:pbi_dpairs.legend]{pbi_dpairs.legend}}} 
+ 

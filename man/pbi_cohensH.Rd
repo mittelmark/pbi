@@ -1,9 +1,9 @@
 \name{pbi_cohensH} 
 \alias{pbi$cohensH} 
 \alias{pbi_cohensH} 
-\title{Effect size for a 2x2 contingency table.} 
+\title{Effect size for a 2x2 contingency table} 
 \description{ 
-  The function *pbi_cohensH* calculates the effect size for 2x2 contingency tables.  
+  The function \code{pbi_cohensH} calculates the effect size for 2x2 contingency tables.  
   Due to Cohen's rule of thumb values of 0.2 to 0.5 are considered to stand  
   for small effects, values from 0.5 to 0.8 represent medium effects and values above 0.8 represent large effects.  
 } 
@@ -21,4 +21,5 @@ rownames(azt)=c("AZT","Placebo")
 colnames(azt)=c("DiseaseProgress", "NoDiseaseProgress") 
 pbi_cohensH(azt) 
 } 
-\seealso{  See also [pbi](#home), [pbi_cohensW](#cohensW) } 
+\seealso{ \code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}},  
+\code{\link[pbi:pbi_cohensW]{pbi_cohensW}} } 

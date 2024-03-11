@@ -1,7 +1,7 @@
 \name{pbi_modelQuality} 
 \alias{pbi$modelQuality} 
 \alias{pbi_modelQuality} 
-\title{ Quality measures for determining model qualitiy. } 
+\title{Quality measures for regression and classification models} 
 \description{ 
   The functions returns a few basic model quality measures  
   such as RMSE, MSE and MAE in case the data in x and y are numeric,  
@@ -65,4 +65,7 @@ unlist(pbi_modelQuality(
    as.factor(c('x','x','v')[as.numeric(iris$Species)]), 
    as.factor(c("x","x","v")[as.numeric(pred)]))) 
 } 
-\seealso{  See also: [pbi](#pbi), [pbi_lmplot](#lmPlot) } 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+\code{\link[pbi:pbi_lmplot]{pbi_lmplot}} 
+} 

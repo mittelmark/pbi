@@ -1,14 +1,15 @@
 \name{pbi_xyplot} 
 \alias{pbi$xyplot} 
 \alias{pbi_xyplot} 
-\title{Improved xyplot which as well displays a grid and the correlation coefficient.} 
+\title{Improved XY-plot which as well displays a grid and the correlation coefficient} 
 \description{ 
   This is just a simple illustrative function to demonstrate how a standard 
   R function can be modified and extended using different type of arguments 
   overwriting default settings and using the ellipsis and delegating  
   remaining arguments to the default function 
 } 
-\usage{pbi_xyplot(x,y,col="blue",pch=19,grid=TRUE,xlab=NULL,ylab=NULL,ellipse=FALSE,ell.fill=FALSE,show.r=TRUE,...)} 
+\usage{pbi_xyplot(x, y, col="blue", pch=19, grid=TRUE, xlab=NULL, ylab=NULL, 
+                  ellipse=FALSE,ell.fill=FALSE,show.r=TRUE,...)} 
 \arguments{ 
   \item{x}{ 
     vector with  numerical values, or a matrix or data frame 
@@ -40,7 +41,7 @@
   \item{show.r}{ 
     should the Pearson correlation been shown on top, default: TRUE 
   } 
-  \item{...}{ 
+  \item{\ldots}{ 
     remaining arguments delegated to the standard plot function 
   } 
 } 
@@ -60,4 +61,8 @@ pbi_xyplot(iris$Sepal.Width,iris$Sepal.Length,
 pbi_xyplot(iris$Sepal.Width,iris$Sepal.Length, 
     xlab="Sepal.Width",ylab="Sepal.Height", 
     col=as.numeric(iris$Species)+1,ellipse=TRUE,ell.fill=TRUE) 
+} 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+\code{\link[pbi:pbi_lmplot]{pbi_lmplot}} 
 } 

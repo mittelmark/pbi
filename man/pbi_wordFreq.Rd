@@ -1,7 +1,7 @@
 \name{pbi_wordFreq} 
 \alias{pbi$wordFreq} 
 \alias{pbi_wordFreq} 
-\title{Count the number of words with a given length in a sequence.} 
+\title{Number of words with a given length in a sequence} 
 \description{ 
   The function creates a sliding window of length `wlength` over the given  
   text or sequence string creating words of length `wlength`.  
@@ -17,7 +17,7 @@
     word size, default: 2 
   } 
 } 
-\value{return list object with words as keys and counts as values or data frame in case input is a vector.} 
+\value{return list object with words as keys and counts as values or data frame in case input is a vector} 
 \examples{ 
   seq="AAABBBCCCDEFAABBCCDD" 
   unlist(pbi_wordFreq(seq)) 
@@ -34,4 +34,7 @@
   min=pbi_wordFreq(minions[,1],wlength=2) 
   rownames(min)=rownames(minions) 
   min 
+} 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}} 
 } 

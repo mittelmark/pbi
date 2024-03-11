@@ -1,7 +1,7 @@
 \name{pbi_report.conf.int} 
 \alias{pbi$report.conf.int} 
 \alias{pbi_report.conf.int} 
-\title{Return a formatted text string for reporting a confidence interval. } 
+\title{Formatted text strings for reporting a confidence interval} 
 \description{ 
     Return a formatted text string for reporting a confidence interval.  
 } 
@@ -21,4 +21,7 @@
   colnames(azt)=c("DiseaseProgress", "NoDiseaseProgress") 
   pbi_report.conf.int(prop.test(azt)$conf.int) 
 } 
-\seealso{  See also [pbi](#home), [pbi_report.pval](#report.pval) } 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}}, 
+\code{\link[pbi:pbi_report.chisq.test]{pbi_report.chisq.test}}, \code{\link[pbi:pbi_report.pval]{pbi_report.pval}} 
+} 

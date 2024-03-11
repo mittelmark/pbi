@@ -1,8 +1,7 @@
 \name{pbi_impute} 
 \alias{pbi$impute} 
 \alias{pbi_impute} 
-\title{ Missing value imputation using mean, rpart or knn methods. 
-} 
+\title{Missing value imputation using mean, rpart or knn methods} 
 \description{ 
     Replaces missing values with a reasonable guess by different imputation methods such as  
   the simple and not recommended methods mean and median, where NA's are replaced with the  
@@ -42,4 +41,6 @@
   cor(as.matrix(iris[,1:4])[is.na(irc)],irknn[is.na(irc)])   
   cor(as.matrix(iris[,1:4])[is.na(irc)],irrpt[is.na(irc)])   
 } 
-\seealso{  See also: [pbi](#pbi) } 
+\seealso{  
+\code{\link[pbi:pbi-package]{pbi-package}}, \code{\link[pbi:pbi-class]{pbi-class}} 
+} 
