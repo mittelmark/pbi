@@ -1,7 +1,7 @@
 ---
 title: Vignette for the pbi package
 author: Detlef Groth, University of Potsdam, Germany
-date: 2024-03-12 13:58
+date: 2024-03-12 20:02
 output: 
     rmarkdown::html_vignette:
         toc: true
@@ -448,8 +448,8 @@ There are as well two utility functions to display the content of text files:
 - `pbi$file.cat` -  return a file as a long string
 
 ```{r}
-pbi$file.head('tutorial.Rmd')
-content=pbi$file.cat('tutorial.Rmd')
+pbi$file.head('pbi-tutorial.Rmd')
+content=pbi$file.cat('pbi-tutorial.Rmd')
 nchar(content)
 head(strsplit(content,"\n")[[1]])
 ```
