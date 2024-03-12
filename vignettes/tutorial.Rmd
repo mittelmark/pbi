@@ -1,7 +1,7 @@
 ---
 title: Vignette for the pbi package
 author: Detlef Groth, University of Potsdam, Germany
-date: 2024-03-11 18:00
+date: 2024-03-12 09:04
 output: 
     rmarkdown::html_vignette:
         toc: true
@@ -125,9 +125,139 @@ cor(as.matrix(iris[,1:4])[is.na(irc)],irknn[is.na(irc)])
 cor(as.matrix(iris[,1:4])[is.na(irc)],irrpt[is.na(irc)])
 ```
 
+### pbi$mi - Mutual information
+
+Mutual  information  measures entropy, the higher the mutual  information, the
+lower the entropy.
+
+```{r}
+rn1=rnorm(100,mean=10,sd=1);
+rn2=rn1+0.5*rnorm(100)
+cor(rn1,rn2) # high
+cor(rn1,sample(rn2)) #random
+pbi_mi(rn1,rn2) # high
+pbi_mi(rn1,sample(rn2)) #random
+tab=table(cut(rn1,breaks=4),cut(rn2,breaks=4))
+pbi_mi(tab)
+pbi_mi(rn1,rn2,breaks=4)
+pbi_mi(rn1,rn2,breaks=7)
+data(iris)
+```
+
+### pbi$modelQuality - peformance of machine learning methods
+
+This function  provides  measures for the quality of a machine  learning model
+comparing the prediction with know real values.
+
+__Regression__ is the process of predicting numerical data using machine
+learning models. Here an example:
+
+```{r}
+library(MASS)
+data(swiss)
+###  linear model
+mod=lm(bwt~lwt,data=birthwt)
+summary(mod)$r.squared
+pred=predict(mod,newdata=birthwt)
+unlist(pbi_modelQuality(birthwt$bwt,pred))
+mod=lm(bwt~lwt+age,data=birthwt)
+summary(mod)$r.squared
+unlist(pbi_modelQuality(birthwt$bwt,predict(mod,newdata=birthwt)))
+```
+
+__Classification__ is the process of creating models to predict  qualitative data.
+Measures to evaluate the quality of the prediction are, accuracy, sensitivity,
+specificity and many others, here examples with two class problems:
+
+```{r}
+library(rpart)
+### simple two class problem
+sex=as.factor(c(rep("M",50),rep("F",50)))
+height=c(rnorm(50,mean=180,sd=7),rnorm(50,mean=178,sd=6))
+mod=rpart(sex~height)
+table(sex,pred=predict(mod,newdata=data.frame(height=height),type="class"))
+unlist(pbi_modelQuality(sex,
+      predict(mod,newdata=data.frame(height=height),type="class")))
+### simple two class problem but unbalanced
+sex=as.factor(c(rep("M",30),rep("F",70))) # rare males
+height=c(rnorm(30,mean=180,sd=7),rnorm(70,mean=178,sd=6))
+mod=rpart(sex~height)
+table(sex,pred=predict(mod,newdata=data.frame(height=height),type="class"))
+unlist(pbi_modelQuality(sex,
+    predict(mod,newdata=data.frame(height=height),type="class")))
+```
+
+Now a three class problem:
+
+```{r}
+### difficult three class problem
+table(iris$Species)
+mod=rpart(Species~.,data=iris)
+pred=predict(mod,newdata=iris,type="class")
+plot(mod,margin=0.2)
+text(mod)
+table(pred,iris$Species)
+### convert to two classes (setosa)
+table(c('s','v','v')[as.numeric(iris$Species)])
+unlist(pbi_modelQuality(
+   as.factor(c('s','v','v')[as.numeric(iris$Species)]),
+   as.factor(c("s","v","v")[as.numeric(pred)])))
+### convert to two classes (versicolor)
+unlist(pbi_modelQuality(
+   as.factor(c('x','v','x')[as.numeric(iris$Species)]),
+   as.factor(c("x","v","x")[as.numeric(pred)])))
+### convert to two classes (virginica)
+unlist(pbi_modelQuality(
+   as.factor(c('x','x','v')[as.numeric(iris$Species)]),
+   as.factor(c("x","x","v")[as.numeric(pred)])))
+```
+
+### pbi$modus
+
+The center of a  distribution  for a categorical  variable is the mosten often
+appearing  level  in this  variable.  As R does not have a modus  function  we
+provide our own.
+
+```{r}
+pbi_modus(c('A','A','B','C'))
+pbi_modus(c('A','A','B','B','C'))
+```
+
+### pbi$pcor and pbi$pcor.test - partial correlation
+
+Partial  correlation  measures  the  strength of the  association  between two
+variables  if the effect of a third or even more  variables is removed.  Let's
+say you  observe an high  association  between  shoe-size  and  reading  speed
+(words/min).  If you measure the  correlation  the  association is quite high.
+However  if  you  remove  the  effect  of  age  on  this  association  becomes
+neglectable. Here the example:
+
+```{r}
+y.data <- data.frame(
+  shoesize=c(20,22,24,26,28,30,32,34, 36, 38, 40, 42, 44, 46),
+  speed   =c(0, 0, 5, 10,14,50,70,90, 130,167,180,182,177,181),
+  age     =c(3, 4, 5, 6, 7 ,8 ,9, 10, 11, 12, 14, 16, 18, 21))
+# partial correlation between "hl" and "disp" given "deg" and "BC"
+cor(y.data)
+cor(y.data$shoesize,y.data$speed)
+pbi$pcor(y.data$shoesize,y.data$speed,y.data$age)
+pbi$pcor.test(y.data$shoesize,y.data$speed,y.data$age)
+```
+
+### pbi$sem - standard error of the mean
+
+R does not provide a function to calculate the standard error of the mean (SEM). So here we have one:
+
+```{r}
+pbi$sem(iris[iris$Species=="setosa",1])
+aggregate(iris[,1:4],by=list(iris$Species),pbi$sem)
+```
+
+
+
 ## Effect size functions
 
-Effect size  measures are often ignored by  researchers  despite the fact that
+Effect size measures are often ignored by  researchers  despite the fact that
 the focus of reporting should be more on the effect size than on the p-value.
 
 The _pbi_ package provides the following effect size measures for comparing means:
