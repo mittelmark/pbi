@@ -1,7 +1,7 @@
 ---
 title: Vignette for the pbi package
 author: Detlef Groth, University of Potsdam, Germany
-date: 2024-03-12 09:04
+date: 2024-03-12 13:58
 output: 
     rmarkdown::html_vignette:
         toc: true
@@ -252,7 +252,6 @@ R does not provide a function to calculate the standard error of the mean (SEM).
 pbi$sem(iris[iris$Species=="setosa",1])
 aggregate(iris[,1:4],by=list(iris$Species),pbi$sem)
 ```
-
 
 
 ## Effect size functions
@@ -560,3 +559,139 @@ pbi_pca.varplot(pca,cex.sym=5,cex.var=0.7,cex.lab=1)
 ```
 
 ## Sequence related functions
+
+The package contains as well a few sequence and structure related functions.
+
+### pbi$msa2pwm - alignment to a position weight matrix
+
+The functions takes and alignment file and returns a position weight matrix as
+well as other measures. Here an example of given on the Wikipedia
+([https://en.wikipedia.org/wiki/Position_weight_matrix](https://en.wikipedia.org/wiki/Position_weight_matrix)).
+
+```{r}
+
+cat("GAGGTAAAC
+TCCGTAAGT
+CAGGTTGGA
+ACAGTCAGT
+TAGGTCATT
+TAGGTACTG
+ATGGTAACT
+CAGGTATAC
+TGTGTGAGT
+AAGGTAAGT
+",file="test.clu")
+lapply(pbi_msa2pwm("test.clu"),round,2)
+```
+
+### pbi$mw - determine molecular weights for proteins
+
+```{r}
+pbi_mw("AACTLIS")
+pbi_mw("A")
+```
+
+### pbi$prosite2regex - convert Prosite regexes
+
+This function  converts  Prosite  regular  expressions  into standard  regular
+expressions which can be used with R and other programming languages.
+
+```{r}
+pbi$prosite2regex("A-T-x(0,3)-{ALV}-A")
+rx=pbi$prosite2regex("A-T-x(0,3)-{ALV}-A")
+grepl(rx,"HATTA")
+```
+
+### pbi$protscale - calculate protscale moving averages
+
+```{r fig.width=6,fig.height=6}
+fasta="
+>sp|P04156.1|PRIO_HUMAN
+MANLGCWMLVLFVATWSDLGLCKKRPKPGGWNTGGSRYPGQGSPGGNRYPPQGGGGWGQPHGGGWGQPHG
+GGWGQPHGGGWGQPHGGGWGQGGGTHSQWNKPSKPKTNMKHMAGAAAAGAVVGGLGGYMLGSAMSRPIIH
+FGSDYEDRYYRENMHRYPNQVYYRPMDEYSNQNNFVHDCVNITIKQHTVTTTTKGENFTETDVKMMERVV
+EQMCITQYERESQAYYQRGSSMVLFSSPPVILLISFLIFLIVG"
+pbi$protscale(fasta,plot=TRUE,col="light blue")
+```
+
+### - pbi$readFasta - read FASTA files
+
+```{r  fig.width=6,fig.height=4}
+fout = file('minions.fasta','w')
+cat(">Minion1\nSTSTTS\n>Minion2\nTTTTTT\n>Minion3\nSTSTTT\n",file=fout)
+cat(">Minion4\nSTTTTT\n>Minion5\nSSTTTT\n>Minion6\nSSSTST\n",file=fout)
+cat("\n>Minion7\nSSSSTT\n", file=fout)
+close(fout)
+seq=pbi_readFasta("minions.fasta")
+seq[7]
+MM=adist(unlist(seq))
+plot(hclust(as.dist(MM)))
+```
+
+### - pbi$readPepinfo - read data fro EMBOSS pepinfo
+
+```{r fig.width=6,fig.height=4}
+pepfile=system.file("files/pepinfo-spike-sars2.txt",package="pbi")
+if (file.exists(pepfile)) {
+  pbi$readPepinfo(pepfile)
+  res=pbi$readPepinfo(pepfile,region="Doolittle")
+  plot(res$Result ~ res$Position,type="h",col="orange")
+}
+```
+
+### pbi$searchFasta - search a FASTA sequence using regular expressions
+
+```{r}
+### the pattern splits over two lines for the first sequence
+pbi_searchFasta(filename=system.file("files/human-tRNAs.fasta",package="pbi"),
+pattern="GACGC{5}AT{2}CTCT")
+```
+
+### pbi$tkregex - GUI tool to test regular expressions
+
+This a graphical tool which allows you to interactively test regular expressions.
+
+You can start this tool by writing in the terminal:
+
+```{r eval=FALSE}
+pbi$tkregex()
+```
+
+### pbi$wordFreq - word frequency counter
+
+Thus functions count the appearance of word frequencies in sequences.
+
+```{r}
+seq="AAABBBCCCDEFAABBCCDD"
+unlist(pbi$wordFreq(seq))
+unlist(pbi$wordFreq(seq,wlength=4))
+minions=read.table(text='
+Minion1	STSTTS
+Minion2	TTTTTT
+Minion3	STSTTT
+Minion4	STTTTT
+Minion5	SSTTTT
+Minion6	SSSTST
+Minion7	SSSSTT',row.names=1)
+min=pbi$wordFreq(minions[,1],wlength=2)
+rownames(min)=rownames(minions)
+min
+```
+
+## Markdown functions
+
+
+Currently  there is one  function  which  supports  embedding of tables into a
+report without the need to install additional packages like _xtable_ or so.
+
+### pbi$df2md - display data frames and matrices as Markdown tables
+
+The function  `pbi$df2md` allows you to display tabular output within reports.
+To embed such code you have to set results="asis" as the R code chunk option.
+
+```{r results="asis"}
+pbi$df2md(head(iris))
+```
+
+
+
