@@ -20,7 +20,7 @@ First let's show how to install the latest version directly from Gihub:
 To install instead the latest release version which should be more stable use the following command:
 
 ```
-> install.packages("https://github.com/mittelmark/pbi/releases/download/pbi_0.1.0.tar.gz")
+> install.packages("https://github.com/mittelmark/pbi/releases/download/v0.1.0/pbi_0.1.0.tar.gz")
 ```
 
 ## Package documentation
