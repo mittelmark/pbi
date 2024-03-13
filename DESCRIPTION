@@ -1,8 +1,8 @@
 Package: pbi
 Type: Package
 Title: Package for the course Practical Bioinformatics at the University of Potsdam
-Version: 0.0.1
-Date: 2024-03-11
+Version: 0.1.0
+Date: 2024-03-12
 Authors@R:c( 
     person("Detlef", "Groth", , "dgroth@uni-potsdam.de", 
     role = c("aut", "cre"),   comment = c(ORCID = "0000-0002-9441-3978")),
