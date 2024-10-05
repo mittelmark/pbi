@@ -20,14 +20,14 @@ First let's show how to install the latest version directly from Gihub:
 To install instead the latest release version which should be more stable use the following command:
 
 ```
-> install.packages("https://github.com/mittelmark/pbi/releases/download/v0.1.0/pbi_0.1.0.tar.gz")
+> install.packages("https://github.com/mittelmark/pbi/releases/download/v0.1.1/pbi_0.1.1.tar.gz")
 ```
 
 ## Package documentation
 
 The package documentation for version 0.1.0 can be seen here: [pbi-manual.pdf](https://github.com/mittelmark/pbi/files/14588148/pbi-manual.pdf)
 
-The vignette can be after installing the package by writing into the terminal this: `vignette("pbi-tutorial")`
+The vignette can be viewed after installing the package by writing into the terminal this: `vignette("pbi-tutorial")`
 
 
 ## Author and Copyright
