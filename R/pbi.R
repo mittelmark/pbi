@@ -2482,7 +2482,7 @@ pbi_pca.pairs = function (pca,n=10,groups=NULL,
     pst=TRUE
   }
   panel.text = function (x,...) {
-    usr <- par("usr"); on.exit(par(usr))
+    usr <- par("usr"); on.exit(par(usr=usr))
     par(usr = c(0, 1, 0, 1))
     text(0.5,0.5,
          paste(sprintf("%.1f",summary(pca)$importance[2,  N$.n]*100),"%",

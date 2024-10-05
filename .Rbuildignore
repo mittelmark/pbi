@@ -3,4 +3,5 @@
 ^\.\.Rcheck$
 ^\.Rbuildignore~$
 ^Makefile$
+^LICENSE.md$
 bak$

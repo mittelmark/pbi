@@ -1,8 +1,8 @@
 Package: pbi
 Type: Package
 Title: Package for the course Practical Bioinformatics at the University of Potsdam
-Version: 0.1.0
-Date: 2024-03-12
+Version: 0.1.1
+Date: 2024-10-05
 Authors@R:c( 
     person("Detlef", "Groth", , "dgroth@uni-potsdam.de", 
     role = c("aut", "cre"),   comment = c(ORCID = "0000-0002-9441-3978")),
@@ -21,5 +21,5 @@ URL: https://github.com/mittelmark/pbi
 BugReports: https://github.com/mittelmark/pbi/issues
 Suggests: knitr, rmarkdown, palmerpenguins, MASS
 VignetteBuilder: knitr
-License: MIT + file LICENSE
+License: MIT + file LICENSE 
 NeedsCompilation: no
