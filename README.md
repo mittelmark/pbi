@@ -37,7 +37,7 @@ Author: Detlef Groth, University of Potsdam, Germany
 Co-authors: 
 
 - Vera Burdova, University of Potsdam, Germany
-- Jillian Denise Hoffmann, University of Potsdam, Germany
+- Jillian Hoffmann, University of Potsdam, Germany
 - Lisa Banu Kurt, University of Potsdam, Germany
 
 License: MIT License see the file [LICENSE](LICENSE) for details.

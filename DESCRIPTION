@@ -8,7 +8,7 @@ Authors@R:c(
     role = c("aut", "cre"),   comment = c(ORCID = "0000-0002-9441-3978")),
     person("Vera","Burdova",  ,"burdova@uni-potsdam.de",
     role = c("ctb")),
-    person("Jillian Denise","Hoffmann",  ,"hoffmann49@uni-potsdam.de",
+    person("Jillian","Hoffmann",  ,"hoffmann49@uni-potsdam.de",
     role = c("ctb")),
     person("Lisa Banu","Kurt",  ,"kurt2@uni-potsdam.de",
     role = c("ctb"))
