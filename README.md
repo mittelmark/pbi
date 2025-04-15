@@ -1,4 +1,5 @@
-# pbi - R package for Practical Bioinformatics ![](../../actions/workflows/r.yml/badge.svg)
+# pbi - R package for Practical Bioinformatics ![](../../actions/workflows/r.yml/badge.svg) [![Release](https://img.shields.io/github/v/release/mittelmark/pbi.svg?label=current+release)](https://github.com/mittelmark/pbi/releases) [![license](https://img.shields.io/badge/license-MIT-lightgray.svg)](https://opensource.org/license/MIT)
+
 
 This is a package  for the  course  Practical  Bioinformatics  for the  Master
 course Molecular Biology and Biochemistry at the University of Potsdam.
@@ -20,7 +21,7 @@ First let's show how to install the latest version directly from Gihub:
 To install instead the latest release version which should be more stable use the following command:
 
 ```
-> install.packages("https://github.com/mittelmark/pbi/releases/download/v0.1.2/pbi_0.1.2.tar.gz")
+> install.packages("https://github.com/mittelmark/pbi/releases/download/v0.1.2/pbi_0.1.2.tar.gz",repos=NULL)
 ```
 
 ## Package documentation
