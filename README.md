@@ -1,4 +1,6 @@
-# pbi - R package for Practical Bioinformatics ![](../../actions/workflows/r.yml/badge.svg) [![Release](https://img.shields.io/github/v/release/mittelmark/pbi.svg?label=current+release)](https://github.com/mittelmark/pbi/releases) [![license](https://img.shields.io/badge/license-MIT-lightgray.svg)](https://opensource.org/license/MIT)
+# pbi - R package for Practical Bioinformatics 
+
+![](../../actions/workflows/r.yml/badge.svg) [![Release](https://img.shields.io/github/v/release/mittelmark/pbi.svg?label=current+release)](https://github.com/mittelmark/pbi/releases) [![license](https://img.shields.io/badge/license-MIT-lightgray.svg)](https://opensource.org/license/MIT)
 
 
 This is a package  for the  course  Practical  Bioinformatics  for the  Master
